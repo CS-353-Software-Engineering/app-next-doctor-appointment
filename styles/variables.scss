@@ -1,0 +1,84 @@
+$barHeight: 64px !default;
+$minViewport: Calc(100vh - #{$barHeight}) !default;
+$relativeMinViewport: Calc(100% - 2 * #{$barHeight}) !default;
+
+// COLORS
+$mustard: #F2AE1C !default;
+$dark-blue: #05046A !default;
+$light-blue: #5E85BC !default;
+$dark-grey: #646466 !default;
+$light-grey: #B6B6B6 !default;
+$pink: #F27781 !default;
+$table-header-color: #F7F7F8 !default;
+$purple: #23235F !default;
+
+$primary-color: $mustard !default;
+$secondary-color: $light-blue !default;
+$accent-color: $light-blue !default;
+
+$link-color: $light-blue !default;
+$link-hover-color: $dark-blue !default;
+
+$button-bg-color: $light-blue !default;
+$button-bg-disabled-color: $light-grey !default;
+
+$dark-color: #2C2C2C !default;
+$light-color: #FEFEFE !default;
+$grey-color: #6A6363 !default;
+
+$title-color: #171717 !default;
+$title-muted-color: $grey-color !default;
+$body-color: #767676 !default;
+$icon-color: #8E8E93 !default;
+
+$border-color: #EEEEEE !default;
+
+$active-color: #FFAC32 !default;
+$active-tab-color: #FFF8EE !default;
+
+$form-field-bg-color: #EFF0F6 !default;
+
+
+$background-color: #FAF9F9 !default;
+$background-color-grey: #fafafa !default;
+
+$white: #FFFFFF !default;
+$black: #000000 !default;
+
+$success-color: #56DE29 !default;
+$success-focus-color: #56DE29 !default;
+$success-disabled-color: #6FDD4D !default;
+
+$danger-color: #F26464 !default;
+$danger-color: #F26464 !default;
+$danger-focus-color: #FF4954 !default;
+$danger-disabled-color: #FA757E !default;
+
+// GRADIENTS
+$gradient-dropzone: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(248, 249, 252, 1) 63.44%) !default;
+
+// BORDER RADII
+$button-tab-radius: 12px !default;
+$form-field-radius: 8px !default;
+$card-radius-xs: 8px !default;
+$card-radius-sm: 14px !default;
+$card-radius-md: 24px !default;
+$card-radius-lg: 32px !default;
+$card-radius: 16px !default;
+
+// SHADOWS
+$mild-shadow: "0px 5px 10px 0px rgba(160, 163, 189, 0.1)" !default;
+
+// FONT STYLES
+$regular-weight: 400 !default;
+$medium-weight: 500 !default;
+$semi-bold-weight: 600 !default;
+$bold-weight: 700 !default;
+
+// FONT SIZES
+$fs-base: 14px !default;
+$fs-medium: 24px !default;
+$fs-large: 36px !default;
+
+// LINE HEIGHTS
+$base-lh: 34px !default;
