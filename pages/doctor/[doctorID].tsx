@@ -68,11 +68,7 @@ const DoctorProfile = () => {
           {doctor && (
             <div>
               <Typography>Doctor Profile</Typography>
-              <ListItemButton
-                onClick={() => {
-                  router.push(`doctor/${doctor?.id}`);
-                }}
-              >
+              <ListItemButton>
                 <ListItem alignItems="flex-start">
                   <ListItemAvatar>
                     <Avatar alt={doctor?.name} src={doctor?.image} />
