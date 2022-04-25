@@ -1,13 +1,13 @@
-import * as devConfig from '../../aws-exports'
-import {Amplify} from "aws-amplify";
+import devConfig from "../../aws-exports";
+import { Amplify } from "aws-amplify";
 
-function getConfig(){
-    return devConfig
+function getConfig() {
+  return devConfig;
 }
 
 export function loadAWS() {
-    const config = getConfig()
+  const config = getConfig();
 
-    Amplify.configure(config)
+  Amplify.configure(config);
+  // Auth.configure(config);
 }
-

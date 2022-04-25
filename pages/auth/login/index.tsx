@@ -42,9 +42,17 @@ export default function Index() {
     setLoading(true);
     console.log(data.email, data.password);
 
-    login({ username: data.email, password: data.password }).then(() => {
-      setLoading(false);
-    });
+    login({ username: data.email, password: data.password })
+      .then(() => {
+        alert("Logged in");
+      })
+      .catch((error) => {
+        console.error(error);
+        alert("Incorrect username/password");
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   const redirectTo = useCallback(

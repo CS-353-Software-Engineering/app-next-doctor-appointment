@@ -2762,7 +2762,7 @@ ast-types-flow@^0.0.7:
   resolved "https://registry.yarnpkg.com/ast-types-flow/-/ast-types-flow-0.0.7.tgz#f70b735c6bca1a5c9c22d982c3e39e7feba3bdad"
   integrity sha1-9wtzXGvKGlycItmCw+Oef+ujva0=
 
-aws-amplify@^4.3.0:
+aws-amplify@^4.3.20:
   version "4.3.20"
   resolved "https://registry.yarnpkg.com/aws-amplify/-/aws-amplify-4.3.20.tgz#292603ace65575cd96ddc3967537ba96b1ff28b3"
   integrity sha512-k3l2QXcItXg9HmfF6rOqwUBmP5pgnEAGCYyaSkKzz+PDnMfCgdyR1GkSgqWurR86qxgEZ9yWjVFQ3NZ2JUlbjg==
