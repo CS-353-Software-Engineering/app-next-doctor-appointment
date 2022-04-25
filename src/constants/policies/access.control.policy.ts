@@ -1,21 +1,16 @@
 export enum UserRole {
-    ADMIN = "ADMIN",
-    DOUBT_SOLVER = "DOUBT_SOLVER",
-    UNKNOWN = "UNKNOWN"
+  DOCTOR = "DOCTOR",
+  PATIENT = "PATIENT",
+  UNKNOWN = "UNKNOWN",
 }
 
-
-export const policies: { urls: string[], role: UserRole }[] = [
-    {
-        urls: ['/admin'],
-        role: UserRole.ADMIN
-    },
-    {
-        urls: ['/doubt-solver'],
-        role: UserRole.DOUBT_SOLVER
-    },
-
-
-]
-
-
+export const policies: { urls: string[]; role: UserRole }[] = [
+  {
+    urls: ["/doctor"],
+    role: UserRole.DOCTOR,
+  },
+  {
+    urls: ["/patient"],
+    role: UserRole.PATIENT,
+  },
+];

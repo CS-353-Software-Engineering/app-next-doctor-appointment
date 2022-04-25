@@ -1,18 +1,18 @@
 import * as React from "react";
-import DefaultLayout from "../src/components/layout/DefaultLayout/defaultLayout";
+import DefaultLayout from "../../../src/components/layout/DefaultLayout/defaultLayout";
 import {
-  ListItemText,
-  ListItemButton,
-  ListItemAvatar,
-  Typography,
   Avatar,
   Divider,
-  ListItem,
   List,
+  ListItem,
+  ListItemAvatar,
+  ListItemButton,
+  ListItemText,
+  Typography,
 } from "@mui/material";
 import { useRouter } from "next/router";
 
-const doctors = [
+const index = [
   {
     id: 1,
     name: "John Doe",
@@ -47,7 +47,7 @@ export default function ListDoctors() {
           dense
           sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
         >
-          {doctors?.map((doctor, idx) => {
+          {index?.map((doctor, idx) => {
             return (
               <div key={idx}>
                 <ListItemButton

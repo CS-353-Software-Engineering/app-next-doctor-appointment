@@ -1,26 +1,19 @@
 import {
+  Avatar,
   ListItem,
   ListItemAvatar,
   ListItemButton,
-  Typography,
-  Avatar,
   ListItemText,
+  Typography,
 } from "@mui/material";
 import { useRouter } from "next/router";
-import { useState, Fragment, useEffect } from "react";
+import { Fragment, useEffect, useState } from "react";
 import DefaultLayout from "../../src/components/layout/DefaultLayout/defaultLayout";
+import { Doctor } from "../../src/models/doctor/doctor.model";
 
 const DoctorProfile = () => {
   const router = useRouter();
   const { doctorID } = router.query;
-
-  interface Doctor {
-    id: number;
-    name: string;
-    speciality: string;
-    image: string;
-    desctiption: string;
-  }
 
   const [doctor, setDoctor] = useState<Doctor | null>(null);
 
@@ -31,21 +24,21 @@ const DoctorProfile = () => {
         name: "John Doe",
         speciality: "Heart Specialist",
         image: "https://randomuser.me/api/portraits/men/69.jpg",
-        desctiption: "Hello, I am a nice doctor",
+        bio: "Hello, I am a nice doctor",
       },
       {
         id: 2,
         name: "Hassan Abbasi",
         speciality: "Expert in Cardiology",
         image: "https://randomuser.me/api/portraits/men/74.jpg",
-        desctiption: "Hello, I am a cool doctor",
+        bio: "Hello, I am a cool doctor",
       },
       {
         id: 3,
         name: "Ahmad Feroz",
         speciality: "Brain Surgeon",
         image: "https://randomuser.me/api/portraits/men/73.jpg",
-        desctiption: "Hello, I am a good doctor",
+        bio: "Hello, I am a good doctor",
       },
     ];
 
@@ -87,7 +80,7 @@ const DoctorProfile = () => {
                           {doctor?.speciality}
                         </Typography>
                         <br />
-                        {doctor?.desctiption}
+                        {doctor?.bio}
                       </Fragment>
                     }
                   />

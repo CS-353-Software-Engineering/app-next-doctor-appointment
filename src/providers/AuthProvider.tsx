@@ -6,6 +6,7 @@ import {
   policies,
   UserRole,
 } from "../constants/policies/access.control.policy";
+import { Spinner } from "react-bootstrap";
 
 type AuthProviderProps = {
   children: any;
@@ -78,10 +79,7 @@ export const AuthProvider = (props: AuthProviderProps) => {
   if (isLoggedIn === LoginStatus.UNKNOWN) {
     return (
       <div className="d-flex flex-column align-items-center justify-content-center vh-100 vw-100">
-        {/*<Spinner*/}
-        {/*    animation="border"*/}
-        {/*className="text-black"*/}
-        {/*    />*/}
+        <Spinner animation="border" className="text-black" />
         Authenticating
       </div>
     );
