@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import DefaultLayout from "../src/components/layout/DefaultLayout/defaultLayout";
+import DefaultLayout from "../../../src/components/layout/DefaultLayout/defaultLayout";
 import { Spinner } from "react-bootstrap";
 import { Container, Typography, Button } from "@mui/material";
 import TextField from "@mui/material/TextField";
@@ -28,7 +28,7 @@ const schema = yup.object().shape({
     .oneOf([yup.ref("password"), null], "Confirm Password does not match"),
 });
 
-export default function Register() {
+export default function Index() {
   const [loading, setLoading] = useState(false);
 
   const {
