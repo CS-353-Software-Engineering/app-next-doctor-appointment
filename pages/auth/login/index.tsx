@@ -3,9 +3,11 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import DefaultLayout from "../../../src/components/layout/DefaultLayout/defaultLayout";
 import { Spinner } from "react-bootstrap";
-import { Container, Typography, Button } from "@mui/material";
+import { Button, Container, Typography } from "@mui/material";
 import TextField from "@mui/material/TextField";
-import { useState } from "react";
+import { useCallback, useContext, useState } from "react";
+import AuthContext from "../../../src/contexts/shared/auth/authContext";
+import { useRouter } from "next/router";
 
 interface IFormInput {
   email: string;
@@ -24,6 +26,10 @@ const schema = yup.object().shape({
 export default function Index() {
   const [loading, setLoading] = useState(false);
 
+  const router = useRouter();
+
+  const { login } = useContext(AuthContext);
+
   const {
     register,
     handleSubmit,
@@ -35,8 +41,15 @@ export default function Index() {
   const onSubmit = async (data: IFormInput) => {
     setLoading(true);
     console.log(data.email, data.password);
-    setLoading(false);
+
+    login({ username: data.email, password: data.password }).then(() => {
+      setLoading(false);
+    });
   };
+
+  const redirectTo = useCallback((path: string) => {
+    router.replace(path).finally(() => {});
+  }, []);
 
   return (
     <DefaultLayout>
@@ -70,6 +83,16 @@ export default function Index() {
             <Typography variant="inherit" color="textSecondary">
               {errors.password?.message}
             </Typography>
+
+            <a
+              type="submit"
+              color="primary"
+              onClick={() => {
+                redirectTo("/auth/register");
+              }}
+            >
+              Register
+            </a>
 
             <Button
               disabled={loading}

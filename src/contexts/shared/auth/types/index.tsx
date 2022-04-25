@@ -1,4 +1,5 @@
 import { User } from "../../../../models/shared/user.model";
+import { AuthCredentials } from "../../../../services/auth";
 
 export enum LoginStatus {
   LOGGED_IN,
@@ -12,7 +13,7 @@ export interface IAuthContext {
   isLoggedIn: LoginStatus;
   user?: User;
   loading: boolean;
-  login: Function;
+  login: (credentials: AuthCredentials) => Promise<void>;
   logout: Function;
 }
 
@@ -20,6 +21,6 @@ export const defaultState: IAuthContext = {
   isLoggedIn: LoginStatus.UNKNOWN,
   user: undefined,
   loading: false,
-  login: () => {},
+  login: async (credentials: AuthCredentials) => {},
   logout: () => {},
 };
