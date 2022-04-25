@@ -1,10 +1,22 @@
 import PropTypes from "prop-types";
-import Header from "../../core/Header";
-import Footer from "../../core/Footer";
+import Header, { HeaderProps } from "../../core/Header";
+import Footer, { FooterProps } from "../../core/Footer";
 import { Col, Container, Row } from "react-bootstrap";
 import styles from "./styles.module.scss";
 
-const DefaultLayout = (props: { children: React.ReactChild }) => {
+type DefaultLayoutDataProps = {
+  headerProps: HeaderProps;
+  footerProps: FooterProps;
+};
+
+export type DefaultLayoutProps = {
+  children: any;
+  data: DefaultLayoutDataProps;
+  showHeader: boolean;
+  showSideBar: boolean;
+};
+
+const DefaultLayout = (props: DefaultLayoutProps) => {
   const { children } = props;
 
   return (

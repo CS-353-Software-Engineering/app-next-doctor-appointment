@@ -1,5 +1,4 @@
 import * as React from "react";
-import DefaultLayout from "../../../src/components/layout/DefaultLayout/defaultLayout";
 import {
   Avatar,
   Divider,
@@ -11,6 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useRouter } from "next/router";
+import { LayoutProvider } from "../../../src/providers/LayoutProvider";
 
 const index = [
   {
@@ -40,7 +40,7 @@ export default function ListDoctors() {
   const router = useRouter();
 
   return (
-    <DefaultLayout>
+    <LayoutProvider>
       <div>
         <Typography>List Of Doctors</Typography>
         <List
@@ -86,6 +86,6 @@ export default function ListDoctors() {
           })}
         </List>
       </div>
-    </DefaultLayout>
+    </LayoutProvider>
   );
 }

@@ -5,6 +5,8 @@ import { useEffect } from "react";
 import { AppConfig } from "../src/config";
 import { StateProvider } from "../src/providers/StateProvider";
 import { AuthProvider } from "../src/providers/AuthProvider";
+import Head from "next/head";
+import { APPLICATION_NAME } from "../src/constants";
 
 function MyApp({ Component, pageProps }: AppProps) {
   //Load Configs
@@ -13,19 +15,17 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    // <>
-    //   <Head>
-    //     <title>{APPLICATION_NAME}</title>
-    //     <link rel="icon" href="/doctor.png" />
-    //   </Head>
-    //   <Component {...pageProps} />
-    // </>
-
-    <StateProvider>
-      <AuthProvider>
-        <Component {...pageProps} />
-      </AuthProvider>
-    </StateProvider>
+    <>
+      <Head>
+        <title>{APPLICATION_NAME}</title>
+        <link rel="icon" href="/doctor.png" />
+      </Head>
+      <StateProvider>
+        <AuthProvider>
+          <Component {...pageProps} />
+        </AuthProvider>
+      </StateProvider>
+    </>
   );
 }
 

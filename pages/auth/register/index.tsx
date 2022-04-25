@@ -1,11 +1,12 @@
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import DefaultLayout from "../../../src/components/layout/DefaultLayout/defaultLayout";
 import { Spinner } from "react-bootstrap";
-import { Container, Typography, Button } from "@mui/material";
+import { Button, Container, Typography } from "@mui/material";
 import TextField from "@mui/material/TextField";
-import { useState } from "react";
+import { useCallback, useState } from "react";
+import { LayoutProvider } from "../../../src/providers/LayoutProvider";
+import { useRouter } from "next/router";
 
 interface IFormInput {
   fullname: string;
@@ -30,6 +31,7 @@ const schema = yup.object().shape({
 
 export default function Index() {
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const {
     register,
@@ -39,6 +41,10 @@ export default function Index() {
     resolver: yupResolver(schema),
   });
 
+  const redirectTo = useCallback((path: string) => {
+    router.replace(path).finally(() => {});
+  }, []);
+
   const onSubmit = async (data: IFormInput) => {
     setLoading(true);
     console.log(data.email, data.password);
@@ -46,7 +52,7 @@ export default function Index() {
   };
 
   return (
-    <DefaultLayout>
+    <LayoutProvider>
       <Container maxWidth="xs">
         <Typography textAlign="center" variant="h5">
           Register
@@ -111,6 +117,15 @@ export default function Index() {
             >
               Register
             </Button>
+            <p
+              className="text-center text-danger text-decoration-underline mt-4 cursor-pointer"
+              color="primary"
+              onClick={() => {
+                redirectTo("/auth/login");
+              }}
+            >
+              Already have an account?
+            </p>
           </form>
         )}
 
@@ -121,6 +136,6 @@ export default function Index() {
           </div>
         )}
       </Container>
-    </DefaultLayout>
+    </LayoutProvider>
   );
 }

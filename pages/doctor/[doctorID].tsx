@@ -8,8 +8,8 @@ import {
 } from "@mui/material";
 import { useRouter } from "next/router";
 import { Fragment, useEffect, useState } from "react";
-import DefaultLayout from "../../src/components/layout/DefaultLayout/defaultLayout";
 import { Doctor } from "../../src/models/doctor/doctor.model";
+import { LayoutProvider } from "../../src/providers/LayoutProvider";
 
 const DoctorProfile = () => {
   const router = useRouter();
@@ -56,7 +56,7 @@ const DoctorProfile = () => {
 
   return (
     <>
-      <DefaultLayout>
+      <LayoutProvider>
         <div>
           {doctor && (
             <div>
@@ -89,7 +89,7 @@ const DoctorProfile = () => {
             </div>
           )}
         </div>
-      </DefaultLayout>
+      </LayoutProvider>
     </>
   );
 };

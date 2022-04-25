@@ -1,13 +1,13 @@
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import DefaultLayout from "../../../src/components/layout/DefaultLayout/defaultLayout";
 import { Spinner } from "react-bootstrap";
 import { Button, Container, Typography } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { useCallback, useContext, useState } from "react";
 import AuthContext from "../../../src/contexts/shared/auth/authContext";
 import { useRouter } from "next/router";
+import { LayoutProvider } from "../../../src/providers/LayoutProvider";
 
 interface IFormInput {
   email: string;
@@ -52,7 +52,7 @@ export default function Index() {
   }, []);
 
   return (
-    <DefaultLayout>
+    <LayoutProvider>
       <Container maxWidth="xs">
         <Typography textAlign="center" variant="h5">
           Login
@@ -84,16 +84,6 @@ export default function Index() {
               {errors.password?.message}
             </Typography>
 
-            <a
-              type="submit"
-              color="primary"
-              onClick={() => {
-                redirectTo("/auth/register");
-              }}
-            >
-              Register
-            </a>
-
             <Button
               disabled={loading}
               type="submit"
@@ -103,6 +93,15 @@ export default function Index() {
             >
               Login
             </Button>
+            <p
+              className="text-center text-danger text-decoration-underline mt-4 cursor-pointer"
+              color="primary"
+              onClick={() => {
+                redirectTo("/auth/register");
+              }}
+            >
+              Don't have an account? Sign up today!
+            </p>
           </form>
         )}
 
@@ -113,6 +112,6 @@ export default function Index() {
           </div>
         )}
       </Container>
-    </DefaultLayout>
+    </LayoutProvider>
   );
 }
