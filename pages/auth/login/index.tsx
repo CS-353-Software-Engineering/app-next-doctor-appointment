@@ -47,9 +47,12 @@ export default function Index() {
     });
   };
 
-  const redirectTo = useCallback((path: string) => {
-    router.replace(path).finally(() => {});
-  }, []);
+  const redirectTo = useCallback(
+    (path: string) => {
+      router.replace(path).finally(() => {});
+    },
+    [router]
+  );
 
   return (
     <LayoutProvider>
@@ -100,7 +103,7 @@ export default function Index() {
                 redirectTo("/auth/register");
               }}
             >
-              Don't have an account? Sign up today!
+              Do not have an account? Sign up today!
             </p>
           </form>
         )}

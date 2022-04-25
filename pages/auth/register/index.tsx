@@ -41,9 +41,12 @@ export default function Index() {
     resolver: yupResolver(schema),
   });
 
-  const redirectTo = useCallback((path: string) => {
-    router.replace(path).finally(() => {});
-  }, []);
+  const redirectTo = useCallback(
+    (path: string) => {
+      router.replace(path).finally(() => {});
+    },
+    [router]
+  );
 
   const onSubmit = async (data: IFormInput) => {
     setLoading(true);
