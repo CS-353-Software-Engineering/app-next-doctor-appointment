@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useRouter } from "next/router";
-import { LayoutProvider } from "../../../src/providers/LayoutProvider";
+import { LayoutProvider } from "../../src/providers/LayoutProvider";
 
 const index = [
   {

@@ -111,7 +111,7 @@ export default function Index() {
         {loading && (
           <div style={{ textAlign: "center" }}>
             <br />
-            <Spinner animation="border" color="white"></Spinner>
+            <Spinner animation="border" color="white" />
           </div>
         )}
       </Container>
