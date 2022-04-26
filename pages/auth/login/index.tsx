@@ -9,6 +9,7 @@ import AuthContext from "../../../src/contexts/shared/auth/authContext";
 import { useRouter } from "next/router";
 import { LayoutProvider } from "../../../src/providers/LayoutProvider";
 
+
 interface IFormInput {
   email: string;
   password: string;
@@ -40,13 +41,11 @@ export default function Index() {
 
   const onSubmit = async (data: IFormInput) => {
     setLoading(true);
-    console.log(data.email, data.password);
-
     login({ username: data.email, password: data.password })
       .then(() => {
         alert("Logged in");
       })
-      .catch((error) => {
+      .catch((error: any) => {
         console.error(error);
         alert("Incorrect username/password");
       })
@@ -57,7 +56,7 @@ export default function Index() {
 
   const redirectTo = useCallback(
     (path: string) => {
-      router.replace(path).finally(() => {});
+      router.replace(path).finally(() => { });
     },
     [router]
   );

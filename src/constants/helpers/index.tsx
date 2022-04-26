@@ -6,8 +6,20 @@ export enum PageMode {
     ROLE_PICKER_PAGE,
 }
 
-export interface IFormInput {
+export interface UserFormInput {
     email: string;
     password: string;
     confirmPassword: string;
+}
+
+export interface PatientFormInput {
+    fName: string;
+    lName: string;
+    number: string;
+}
+
+export interface DoctorFormInput {
+    fName: string;
+    lName: string;
+    number: string;
 }

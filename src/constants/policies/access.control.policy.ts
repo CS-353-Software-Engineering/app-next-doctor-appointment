@@ -14,6 +14,3 @@ export const policies: { urls: string[]; role: UserRole }[] = [
     role: UserRole.PATIENT,
   },
 ];
-
-
-

@@ -15,12 +15,16 @@ export interface IAuthContext {
   loading: boolean;
   login: (credentials: AuthCredentials) => Promise<void>;
   logout: Function;
+  signup: (credentials: AuthCredentials) => Promise<void>;
+  verify: (credentials: AuthCredentials, verificationCode: string) => Promise<void>;
 }
 
 export const defaultState: IAuthContext = {
   isLoggedIn: LoginStatus.UNKNOWN,
   user: undefined,
   loading: false,
-  login: async (credentials: AuthCredentials) => {},
-  logout: () => {},
+  login: async (credentials: AuthCredentials) => { },
+  logout: () => { },
+  signup: async (credentials: AuthCredentials) => { },
+  verify: async (credentials: AuthCredentials, verificationCode: string) => { },
 };

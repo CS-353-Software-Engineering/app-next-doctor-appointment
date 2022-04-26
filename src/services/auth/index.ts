@@ -52,4 +52,18 @@ export class AuthManager {
   login(credentials: AuthCredentials): Promise<any> {
     return Auth.signIn(credentials.username, credentials.password);
   }
+
+  signup(credentials: AuthCredentials): Promise<any> {
+    return Auth.signUp({
+      username: credentials.username,
+      password: credentials.password,
+      attributes: {
+        email: credentials.username,
+      },
+    });
+  }
+
+  verify(credentials: AuthCredentials, verificationCode: string): Promise<any> {
+    return Auth.confirmSignUp(credentials.username, verificationCode);
+  }
 }

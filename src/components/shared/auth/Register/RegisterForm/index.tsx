@@ -4,10 +4,8 @@ import React, { useCallback, useState } from "react";
 import { useRouter } from "next/router";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
-import { PageMode, IFormInput } from "../../../../../constants/helpers";
-
-
+import { PageMode, UserFormInput } from "../../../../../constants/helpers";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 
 const schema = yup.object().shape({
@@ -45,13 +43,11 @@ export default function RegisterForm(props: any) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IFormInput>({
+  } = useForm<UserFormInput>({
     resolver: yupResolver(schema),
   });
 
-
-
-  const onSubmit = (data: IFormInput) => {
+  const onSubmit = (data: UserFormInput) => {
     setPageMode(PageMode.ROLE_PICKER_PAGE);
     setUserData(data);
   };

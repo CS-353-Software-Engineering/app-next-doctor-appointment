@@ -15,6 +15,15 @@ export const AuthState = (props: StateProps) => {
     await loadUser();
   }, []);
 
+  const signup = useCallback(async (credentials: AuthCredentials) => {
+    await AuthManager.shared.signup(credentials);
+  }, []);
+
+  const verify = useCallback(async (credentials: AuthCredentials, verificationCode: string) => {
+    await AuthManager.shared.verify(credentials, verificationCode);
+  }, []);
+
+
   const loadUser = useCallback(async () => {
     const user = await User.loadUser();
     dispatch({
@@ -46,6 +55,8 @@ export const AuthState = (props: StateProps) => {
         ...state,
         login: login,
         logout: logout,
+        signup: signup,
+        verify: verify,
       }}
     >
       {props.children}

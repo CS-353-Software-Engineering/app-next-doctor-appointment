@@ -23,7 +23,7 @@ export class User {
     this.lName = data?.lName ?? "";
     this.email = data?.email ?? "";
     this.photo = data?.photo ?? "";
-    this.role = UserRole.UNKNOWN;
+    this.role = UserRole.DOCTOR;
   }
   static async loadUser(): Promise<User> {
     // console.log("GETTING USER")
