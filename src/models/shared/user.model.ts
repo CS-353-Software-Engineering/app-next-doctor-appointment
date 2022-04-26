@@ -33,6 +33,7 @@ export class User {
 
     // const databaseUser: DoubtSolverDB = await DatabaseManager.getDoubtSolver(authUser.id)
 
+    // @ts-ignore
     const user = new User(authUser);
     // console.log("user", user)
     return user;

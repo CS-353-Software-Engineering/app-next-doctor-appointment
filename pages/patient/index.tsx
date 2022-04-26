@@ -1,90 +1,92 @@
 import * as React from "react";
 import {
   Avatar,
-  Divider,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemButton,
-  ListItemText,
-  Typography,
 } from "@mui/material";
 import { useRouter } from "next/router";
 import { LayoutProvider } from "../../src/providers/LayoutProvider";
 
-const index = [
+import {Table, Button } from "react-bootstrap"
+
+const doctors = [
   {
     id: 1,
     name: "John Doe",
     speciality: "Heart Specialist",
     image: "https://randomuser.me/api/portraits/men/69.jpg",
-    desctiption: "Hello, I am a nice doctor",
+    description: "Hello, I am a nice doctor",
   },
   {
     id: 2,
     name: "Hassan Abbasi",
     speciality: "Expert in Cardiology",
     image: "https://randomuser.me/api/portraits/men/74.jpg",
-    desctiption: "Hello, I am a cool doctor",
+    description: "Hello, I am a cool doctor",
   },
   {
     id: 3,
     name: "Ahmad Feroz",
     speciality: "Brain Surgeon",
     image: "https://randomuser.me/api/portraits/men/73.jpg",
-    desctiption: "Hello, I am a good doctor",
+    description: "Hello, I am a good doctor",
+  },
+  {
+    id: 3,
+    name: "Ahmad Feroz",
+    speciality: "Brain Surgeon",
+    image: "https://randomuser.me/api/portraits/men/73.jpg",
+    description: "Hello, I am a good doctor",
+  },
+  {
+    id: 3,
+    name: "Ahmad Feroz",
+    speciality: "Brain Surgeon",
+    image: "https://randomuser.me/api/portraits/men/73.jpg",
+    description: "Hello, I am a good doctor",
+  },
+  {
+    id: 3,
+    name: "Ahmad Feroz",
+    speciality: "Brain Surgeon",
+    image: "https://randomuser.me/api/portraits/men/73.jpg",
+    description: "Hello, I am a good doctor",
+  },
+  {
+    id: 3,
+    name: "Ahmad Feroz",
+    speciality: "Brain Surgeon",
+    image: "https://randomuser.me/api/portraits/men/73.jpg",
+    description: "Hello, I am a good doctor",
   },
 ];
 
-export default function ListDoctors() {
+export default function DoctorsList() {
   const router = useRouter();
 
   return (
     <LayoutProvider>
       <div>
-        <Typography>List Of Doctors</Typography>
-        <List
-          dense
-          sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
-        >
-          {index?.map((doctor, idx) => {
-            return (
-              <div key={idx}>
-                <ListItemButton
-                  onClick={() => {
-                    router.push(`doctor/${doctor?.id}`);
-                  }}
-                >
-                  <ListItem alignItems="flex-start">
-                    <ListItemAvatar>
-                      <Avatar alt={doctor?.name} src={doctor?.image} />
-                    </ListItemAvatar>
+        <h3 className="text-center">List Of Doctors</h3>
 
-                    <ListItemText
-                      primary={doctor?.name}
-                      secondary={
-                        <React.Fragment>
-                          <Typography
-                            sx={{ display: "inline" }}
-                            component="span"
-                            variant="body2"
-                            color="text.primary"
-                          >
-                            {doctor?.speciality}
-                          </Typography>
-                          <br />
-                          {doctor?.desctiption}
-                        </React.Fragment>
-                      }
-                    />
-                  </ListItem>
-                </ListItemButton>
-
-                <Divider variant="inset" component="li" />
-              </div>
-            );
-          })}
-        </List>
+        <Table>
+          <tbody>
+          {
+            doctors?.map((doctor, index) => {
+              return (
+                  <tr key={index}>
+                    <td><Avatar alt={doctor?.name} src={doctor?.image} /></td>
+                    <td>
+                      <p className="fs-5 mb-0"><span className="fw-medium">{doctor?.name}</span> | {doctor.speciality}</p>
+                      <p>{doctor?.description}</p>
+                    </td>
+                    <td>
+                      <Button variant="primary" className="w-100">View</Button>
+                    </td>
+                  </tr>
+              )
+            })
+          }
+          </tbody>
+        </Table>
       </div>
     </LayoutProvider>
   );
