@@ -4,9 +4,9 @@ import type { AppProps } from "next/app";
 import { useEffect } from "react";
 import { StateProvider } from "../src/providers/StateProvider";
 import { AuthProvider } from "../src/providers/AuthProvider";
-import Head from "next/head";
-import { APPLICATION_NAME } from "../src/constants";
 import { loadAppConfig } from "../src/config";
+
+import SafeHydrate from "../src/components/core/SafeHydrate";
 
 function MyApp({ Component, pageProps }: AppProps) {
   //Load Configs
@@ -15,17 +15,13 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    <>
-      <Head>
-        <title>{APPLICATION_NAME}</title>
-        <link rel="icon" href="/doctor.png" />
-      </Head>
+    <SafeHydrate>
       <StateProvider>
         <AuthProvider>
           <Component {...pageProps} />
         </AuthProvider>
       </StateProvider>
-    </>
+    </SafeHydrate>
   );
 }
 
