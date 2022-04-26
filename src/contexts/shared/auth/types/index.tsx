@@ -14,9 +14,6 @@ export interface IAuthContext {
   user?: User;
   loading: boolean;
   login: (credentials: AuthCredentials) => Promise<void>;
-  signUpUser: () => Promise<void>;
-  signUpDoctor: () => Promise<void>;
-  signUpPatient: () => Promise<void>;
   logout: Function;
 }
 
@@ -26,7 +23,4 @@ export const defaultState: IAuthContext = {
   loading: false,
   login: async (credentials: AuthCredentials) => {},
   logout: () => {},
-  signUpUser: async () => {},
-  signUpDoctor: async () => {},
-  signUpPatient: async () => {},
 };

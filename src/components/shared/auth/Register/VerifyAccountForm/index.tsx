@@ -2,7 +2,12 @@ import { Button, Typography } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import React from "react";
 
-export default function VerifyAccountForm() {
+export default function VerifyAccountForm(props: any) {
+
+  const {
+    setSelectedPage
+  } = props
+
   const onSubmit = (data: any) => {
     console.log(data);
   };

@@ -1,15 +1,14 @@
 import { Button, Typography } from "@mui/material";
 import TextField from "@mui/material/TextField";
-import React from "react";
+import React, { useCallback, useState } from "react";
+import { useRouter } from "next/router";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
+import { PageMode, IFormInput } from "../../../../../constants/helpers";
 
-interface IFormInput {
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
+
+
 
 const schema = yup.object().shape({
   email: yup.string().required("Email is required").email("Email is invalid"),
@@ -24,7 +23,24 @@ const schema = yup.object().shape({
     .oneOf([yup.ref("password"), null], "Confirm Password does not match"),
 });
 
-export default function RegisterForm() {
+export default function RegisterForm(props: any) {
+
+  const {
+    setPageMode,
+    setUserData,
+  } = props
+
+
+  const router = useRouter();
+
+  const redirectTo = useCallback(
+    (path: string) => {
+      router.replace(path).finally(() => { });
+    },
+    [router]
+  );
+
+
   const {
     register,
     handleSubmit,
@@ -33,8 +49,11 @@ export default function RegisterForm() {
     resolver: yupResolver(schema),
   });
 
+
+
   const onSubmit = (data: IFormInput) => {
-    console.log(data);
+    setPageMode(PageMode.ROLE_PICKER_PAGE);
+    setUserData(data);
   };
 
   return (
@@ -88,16 +107,18 @@ export default function RegisterForm() {
         <Button type="submit" fullWidth variant="contained" color="primary">
           Register
         </Button>
-        {/*<p*/}
-        {/*  className="text-center text-danger text-decoration-underline mt-4 cursor-pointer"*/}
-        {/*  color="primary"*/}
-        {/*  onClick={() => {*/}
-        {/*    redirectTo("/auth/login");*/}
-        {/*  }}*/}
-        {/*>*/}
-        {/*  Already have an account?*/}
-        {/*</p>*/}
+        <p
+          className="text-center text-danger text-decoration-underline mt-4 cursor-pointer"
+          color="primary"
+          onClick={() => {
+            redirectTo("/auth/login");
+          }}
+        >
+          Already have an account?
+        </p>
       </form>
     </div>
   );
 }
+
+

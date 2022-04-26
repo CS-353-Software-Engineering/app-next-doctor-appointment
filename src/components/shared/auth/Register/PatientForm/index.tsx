@@ -1,12 +1,18 @@
-import { Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import React from "react";
+import { PageMode } from "../../../../../constants/helpers";
 
-export default function PatientForm() {
+export default function PatientForm(props: any) {
+
+  const {
+    setPageMode
+  } = props
+
   return (
     <>
       <Typography variant="h6" gutterBottom>
-        Patient Details
+        Salam Patient Sahab
       </Typography>
 
       <TextField
@@ -15,9 +21,6 @@ export default function PatientForm() {
         margin="normal"
         fullWidth
       />
-      <Typography variant="inherit" className="text-danger  ">
-        {/*{errors.fname?.message}*/}
-      </Typography>
 
       <TextField
         label="Last name"
@@ -26,23 +29,15 @@ export default function PatientForm() {
         fullWidth
       />
 
-      <Typography variant="inherit" className="text-danger "></Typography>
+      <br /><br />
 
-      <TextField
-        name="attribute1"
-        label="Attribute 1"
-        variant="outlined"
-        fullWidth
-        margin="normal"
-      />
+      <Button onClick={() => {
+        setPageMode(PageMode.ROLE_PICKER_PAGE);
+      }} type="submit" fullWidth variant="contained" color="primary">
+        Go Back
+      </Button>
 
-      <TextField
-        name="attribute2"
-        label="Attribute 2"
-        variant="outlined"
-        fullWidth
-        margin="normal"
-      />
+
     </>
   );
 }

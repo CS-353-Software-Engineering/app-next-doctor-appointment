@@ -4,24 +4,31 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  Typography,
+  SelectChangeEvent,
 } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 
-interface RolePickerProps {
-  selectedRole: UserRole;
-}
+import { UserRole } from "../../../../../../src/constants/policies/access.control.policy"
+import { PageMode } from "../../../../../constants/helpers";
 
-export default function RolePicker(props: RolePickerProps) {
-  const [userRole, setUserRole] = useState();
+
+export default function RolePicker(props: any) {
+
+  const {
+    setPageMode,
+    setUserRole,
+    userRole
+  } = props
+
+
+
+  const handleChange = (event: SelectChangeEvent) => {
+    setUserRole(event.target.value as UserRole);
+  };
 
   return (
     <>
-      <Typography variant="h5" align="center">
-        Account created successfully!
-      </Typography>
 
-      <br />
       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">
           Are you a doctor or a patient?
@@ -31,27 +38,29 @@ export default function RolePicker(props: RolePickerProps) {
           id="demo-simple-select"
           value={userRole}
           label="Are you a doctor or a patient?"
-          onChange={() => {}}
+          onChange={handleChange}
         >
           <MenuItem value={UserRole.DOCTOR}>I am a Doctor</MenuItem>
           <MenuItem value={UserRole.PATIENT}>I am a Patient</MenuItem>
         </Select>
       </FormControl>
-      <Button type="submit" fullWidth variant="contained" color="primary">
+      <br /><br />
+      <Button onClick={() => {
+        if (userRole == UserRole.PATIENT) setPageMode(PageMode.PATIENT_DETAIL_PAGE);
+        if (userRole == UserRole.DOCTOR) setPageMode(PageMode.DOCTOR_DETAILS_PAGE);
+      }} type="submit" fullWidth variant="contained" color="primary">
         Continue
       </Button>
 
-      <br />
-      <br />
-      <br />
-      {/*<Button fullWidth variant="contained" color="primary">*/}
-      {/*  Go back*/}
-      {/*</Button>*/}
+      <br /><br />
+
+      <Button onClick={() => {
+        setPageMode(PageMode.REGISTER_USER_PAGE);
+      }} type="submit" fullWidth variant="contained" color="primary">
+        Go Back
+      </Button>
+
     </>
   );
 }
 
-enum UserRole {
-  DOCTOR = "DOCTOR",
-  PATIENT = "PATIENT",
-}
