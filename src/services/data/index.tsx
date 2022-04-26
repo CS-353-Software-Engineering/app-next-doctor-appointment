@@ -7,6 +7,7 @@ export default class DB {
 
     static async createPatient(userInfo: UserFormInput, patientInfo: PatientFormInput) {
         const {
+            id,
             email,
         } = userInfo;
 
@@ -18,6 +19,7 @@ export default class DB {
 
         let data = {
             input: {
+                id,
                 email: email,
                 fName: fName,
                 lName: lName,

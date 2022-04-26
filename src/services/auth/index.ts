@@ -77,18 +77,20 @@ export class AuthManager {
     return Auth.signOut();
   }
 
-  login(credentials: AuthCredentials): Promise<any> {
+  login(credentials: AuthCredentials): Promise<CognitoUser | any> {
     return Auth.signIn(credentials.username, credentials.password);
   }
 
-  signup(credentials: AuthCredentials): Promise<any> {
-    return Auth.signUp({
+  async signup(credentials: AuthCredentials): Promise<CognitoUser> {
+    const result =  await Auth.signUp({
       username: credentials.username,
       password: credentials.password,
       attributes: {
         email: credentials.username,
       },
     });
+
+    return result?.user
   }
 
   verify(credentials: AuthCredentials, verificationCode: string): Promise<any> {

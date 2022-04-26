@@ -40,14 +40,21 @@ export default function PatientForm(props: any) {
     setLoading(true);
 
     signup({ username: userData.email, password: userData.password }).then(
-      () => {
-        DB.createPatient(userData, patientData).then(() => {
+      (user) => {
+        console.warn('myUser: ', user);
+
+        DB.createPatient(userData, patientData)
+            .then(() => {
           console.log("Account created successfully!");
-        }).catch((error) => {
+              setLoading(false);
+              setPageMode(PageMode.VERIFY_USER_PAGE);
+        })
+            .catch((error) => {
           console.log(error);
           setLoading(false);
-        }).finally(() => {
-          setPageMode(PageMode.VERIFY_USER_PAGE);
+        })
+            .finally(() => {
+
         });
       }
     ).catch((error) => {

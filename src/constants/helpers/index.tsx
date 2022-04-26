@@ -7,6 +7,7 @@ export enum PageMode {
 }
 
 export interface UserFormInput {
+    id: string;
     email: string;
     password: string;
     confirmPassword: string;

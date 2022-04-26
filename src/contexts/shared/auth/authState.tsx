@@ -11,16 +11,24 @@ export const AuthState = (props: StateProps) => {
   const [state, dispatch] = useReducer(AuthReducer, defaultState);
 
   const login = useCallback(async (credentials: AuthCredentials) => {
-    await AuthManager.shared.login(credentials);
+    const cognitoUser =  await AuthManager.shared.login(credentials);
     await loadUser();
+
+    console.warn('Boom: ', cognitoUser)
+
+    return cognitoUser;
   }, []);
 
   const signup = useCallback(async (credentials: AuthCredentials) => {
-    await AuthManager.shared.signup(credentials);
+    const newUser = await AuthManager.shared.signup(credentials);
+
+    return newUser;
   }, []);
 
   const verify = useCallback(async (credentials: AuthCredentials, verificationCode: string) => {
-    await AuthManager.shared.verify(credentials, verificationCode);
+    const data = await AuthManager.shared.verify(credentials, verificationCode);
+
+    return data
   }, []);
 
 

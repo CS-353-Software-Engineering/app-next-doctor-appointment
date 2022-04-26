@@ -20,10 +20,13 @@ export default function VerifyAccountForm(props: any) {
 
     console.log(userData);
 
-    verify({ username: email, password: password }, code).then(() => {
+    verify({ username: email, password: password }, code)
+        .then((data) => {
+            console.warn('VerifyData: ', data)
       login({ username: email, password: password })
-        .then(() => {
+        .then((userData) => {
           alert("Logged in");
+
         })
         .catch((error: any) => {
           console.error(error);
