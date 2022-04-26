@@ -4,17 +4,19 @@ export enum UserRole {
   UNKNOWN = "UNKNOWN",
 }
 
+export const whitelistedPaths = ["/sprint1/demo"]
+
 export const policies: { urls: string[]; role: UserRole }[] = [
   {
-    urls: ["/doctor"],
+    urls: ["/doctor",...whitelistedPaths],
     role: UserRole.DOCTOR,
   },
   {
-    urls: ["/patient"],
+    urls: ["/patient",...whitelistedPaths],
     role: UserRole.PATIENT,
   },
   {
-    urls: ["/unauthorized"],
+    urls: ["/unauthorized",...whitelistedPaths],
     role: UserRole.UNKNOWN,
   },
 ];

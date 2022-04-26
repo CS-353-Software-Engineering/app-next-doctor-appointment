@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import {
   policies,
   UserRole,
+  whitelistedPaths,
 } from "../constants/policies/access.control.policy";
 import { Spinner } from "react-bootstrap";
 
@@ -45,27 +46,43 @@ export const AuthProvider = (props: AuthProviderProps) => {
     return `${policy.urls?.[0] ?? "/auth/login"}`;
   }, [user, isLoggedIn]);
 
+
+const isWhiteListed = (url:string) :boolean => {
+  console.log(whitelistedPaths)
+  console.log(url)
+  return whitelistedPaths.includes(url);
+}
+
   const checkAccess = (url: string) => {
     if (isLoggedIn == LoginStatus.UNKNOWN) {
       return;
     }
 
+    if (isWhiteListed(url)){
+      return;
+    }
+
+    
+
     if (isLoggedIn == LoginStatus.LOGGED_OUT) {
       redirectTo("/auth/login");
       return;
     }
+
+
     if (!isAllowed(url)) {
       redirectTo(getRedirectPage());
       return;
     }
+    
   };
 
-  //Check Access Control on Route Change
-  useEffect(() => {
-    router.events.on("routeChangeStart", (url) => {
-      checkAccess(url);
-    });
-  }, []);
+  // //Check Access Control on Route Change
+  // useEffect(() => {
+  //   router.events.on("routeChangeStart", (url) => {
+  //     checkAccess(url);
+  //   });
+  // }, []);
 
   // Check Access Control on Start
   useEffect(() => {
