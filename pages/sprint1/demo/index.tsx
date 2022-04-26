@@ -17,7 +17,7 @@ export default function Sprint1Demo() {
             <iframe
                 className="mt-5"
                 width="80%" height="60%"
-                src="https://www.youtube.com/embed/Oyf0feE9Ewo"
+                src="https://www.youtube.com/embed/olNmawHNyhc"
                 title="YouTube video player" frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
