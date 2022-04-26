@@ -17,8 +17,10 @@ export default function VerifyAccountForm(props: any) {
 
   const VerifyUser = () => {
     const { email, password } = userData;
-    verify({ username: email, password: password }, code).then(() => {
 
+    console.log(userData);
+
+    verify({ username: email, password: password }, code).then(() => {
       login({ username: email, password: password })
         .then(() => {
           alert("Logged in");
@@ -30,6 +32,8 @@ export default function VerifyAccountForm(props: any) {
         .finally(() => {
 
         });
+    }).catch((error) => {
+      console.log(error);
     });
   };
 
