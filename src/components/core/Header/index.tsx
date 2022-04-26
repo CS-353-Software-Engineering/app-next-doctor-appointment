@@ -1,6 +1,8 @@
-import React from "react";
+import { Button } from "@mui/material";
+import React, { useContext, useEffect } from "react";
 import { Container, Navbar } from "react-bootstrap";
 import styles from "./styles.module.scss";
+import AuthContext from '../../../contexts/shared/auth/authContext';
 
 interface UserHeaderData {
   readonly id: string;
@@ -13,7 +15,15 @@ interface UserHeaderData {
 export type HeaderProps = {
   user?: UserHeaderData;
 };
+
 export default function Header(props: HeaderProps): JSX.Element {
+
+  const { logout } = useContext(AuthContext);
+
+  const Logout = () => {
+    logout();
+  }
+
   return (
     <Navbar
       bg="light"
@@ -28,6 +38,18 @@ export default function Header(props: HeaderProps): JSX.Element {
               {props.user?.fName} {props.user?.lName}
             </strong>
           </Navbar.Text>
+
+          <Navbar.Text className="d-flex flex-row justify-content-center align-items-center">
+            &nbsp;
+            {`${props.user?.email ?? 'padawan@maqsad.io'}`}
+            &nbsp;&nbsp;&nbsp;
+            <Button onClick={() => {
+              Logout();
+            }} fullWidth variant="contained" color="primary">
+              Logout
+            </Button>
+          </Navbar.Text>
+
         </Container>
       )}
     </Navbar>
