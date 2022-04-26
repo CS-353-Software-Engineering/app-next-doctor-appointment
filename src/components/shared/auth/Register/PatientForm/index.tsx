@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import DB from "../../../../../services/data";
 import { Spinner } from "react-bootstrap";
 import AuthContext from "../../../../../contexts/shared/auth/authContext";
+import { useRouter } from "next/router";
 
 const schema = yup.object().shape({
   fName: yup.string().required("First Name is required"),
@@ -33,35 +34,29 @@ export default function PatientForm(props: any) {
 
   const [loading, setLoading] = useState(false);
 
-  const { signup } = useContext(AuthContext);
+  const { createPatient } = useContext(AuthContext);
 
+  const router = useRouter()
+  const redirect = () => {
+    router.replace("/patient")
+  }
 
   const onSubmit = (patientData: PatientFormInput) => {
     setLoading(true);
 
-    signup({ username: userData.email, password: userData.password }).then(
-      (user) => {
-        console.warn('myUser: ', user);
-
-        DB.createPatient(userData, patientData)
-            .then(() => {
+    createPatient({...userData,...patientData}).then(() => {
           console.log("Account created successfully!");
-              setLoading(false);
-              setPageMode(PageMode.VERIFY_USER_PAGE);
+              redirect()
         })
             .catch((error) => {
           console.log(error);
-          setLoading(false);
         })
             .finally(() => {
+              setLoading(false);
+
 
         });
-      }
-    ).catch((error) => {
-      console.log(error);
-      setLoading(false);
-    })
-
+      
   };
 
   return (

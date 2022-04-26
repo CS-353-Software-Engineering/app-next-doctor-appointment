@@ -1,11 +1,12 @@
 import { Button, Typography } from "@mui/material";
 import TextField from "@mui/material/TextField";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import { useRouter } from "next/router";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { PageMode, UserFormInput } from "../../../../../constants/helpers";
 import { yupResolver } from "@hookform/resolvers/yup";
+import AuthContext from "../../../../../contexts/shared/auth/authContext";
 
 
 const schema = yup.object().shape({
@@ -38,6 +39,8 @@ export default function RegisterForm(props: any) {
     [router]
   );
 
+  const {signup} = useContext(AuthContext)
+
 
   const {
     register,
@@ -48,8 +51,12 @@ export default function RegisterForm(props: any) {
   });
 
   const onSubmit = (data: UserFormInput) => {
-    setPageMode(PageMode.ROLE_PICKER_PAGE);
-    setUserData(data);
+    signup({ username: data.email, password: data.password }).then(() => {
+      setPageMode(PageMode.VERIFY_USER_PAGE);
+      setUserData(data);
+    }).catch(() => {
+      console.log("Incorrect username password")
+    })
   };
 
   return (

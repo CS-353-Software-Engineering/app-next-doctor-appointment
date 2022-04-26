@@ -19,6 +19,7 @@ export default function Register() {
 
   const [userRole, setUserRole] = useState<UserRole>(UserRole.PATIENT);
   const [userData, setUserData] = useState<UserFormInput>({
+    id:"",
     email: "",
     password: "",
     confirmPassword: "",
@@ -35,7 +36,9 @@ export default function Register() {
         {pageMode == PageMode.ROLE_PICKER_PAGE && <RolePicker setPageMode={setPageMode} userRole={userRole} setUserRole={setUserRole} />}
         {pageMode == PageMode.PATIENT_DETAIL_PAGE && <PatientForm setPageMode={setPageMode} userData={userData} />}
         {pageMode == PageMode.DOCTOR_DETAILS_PAGE && <DoctorForm setPageMode={setPageMode} userData={userData} />}
-        {pageMode == PageMode.VERIFY_USER_PAGE && <VerifyAccountForm setPageMode={setPageMode} userData={userData} />}
+        {pageMode == PageMode.VERIFY_USER_PAGE && <VerifyAccountForm setPageMode={setPageMode} userData={userData} setID={(id) => {
+          setUserData({...userData, id})
+        }}/>}
       </Container>
     </LayoutProvider>
   );

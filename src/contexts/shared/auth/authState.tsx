@@ -2,13 +2,32 @@ import { StateProps } from "../../index";
 import { useCallback, useEffect, useReducer } from "react";
 import AuthReducer from "./authReducer";
 import AuthContext from "./authContext";
-import { defaultState, LoginStatus } from "./types";
+import { BasicUserDetails, defaultState, DoctorDetails, LoginStatus, PatientDetails } from "./types";
 import { AuthActions } from "./types/actions";
 import { AuthCredentials, AuthManager } from "../../../services/auth";
 import { User } from "../../../models/shared/user.model";
+import DB from "../../../services/data";
+import { UserRole } from "../../../constants/policies/access.control.policy";
 
 export const AuthState = (props: StateProps) => {
   const [state, dispatch] = useReducer(AuthReducer, defaultState);
+
+
+  const createPatient = async (userData:PatientDetails) => {
+    DB.createPatient(userData)
+    return DB.createUser({...userData,type:UserRole.PATIENT})
+  }
+
+  const createDoctor = (userData:DoctorDetails) => {
+    DB.createPatient(userData)
+    return DB.createUser({...userData,type:UserRole.DOCTOR})
+  }
+
+  const createUser = (userData:BasicUserDetails) => {
+    return DB.createUser(userData)
+  }
+
+
 
   const login = useCallback(async (credentials: AuthCredentials) => {
     const cognitoUser =  await AuthManager.shared.login(credentials);
@@ -65,6 +84,8 @@ export const AuthState = (props: StateProps) => {
         logout: logout,
         signup: signup,
         verify: verify,
+        createDoctor,
+        createPatient
       }}
     >
       {props.children}

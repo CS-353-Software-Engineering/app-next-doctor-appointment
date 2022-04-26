@@ -1,43 +1,48 @@
 import { Button, Typography } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import React, { useContext, useState } from "react";
-import { PageMode } from "../../../../../constants/helpers";
+import { PageMode, UserFormInput } from "../../../../../constants/helpers";
 import AuthContext from "../../../../../contexts/shared/auth/authContext";
 
-export default function VerifyAccountForm(props: any) {
+interface VerifyAccountFormProps{
+  setPageMode: (mode: PageMode) => void;
+  userData:UserFormInput,
+  setID:(id:string) => void
+}
+
+export default function VerifyAccountForm(props: VerifyAccountFormProps) {
 
   const {
     setPageMode,
-    userData
+    userData,
+    setID
   } = props
 
   const [code, setCode] = useState("");
 
   const { login, verify } = useContext(AuthContext);
 
-  const VerifyUser = () => {
+
+
+  const verifyUser = async () => {
     const { email, password } = userData;
+    await verify({username:email, password}, code);
+    const cognitoUser = await login({ username: email, password: password })
+    
+    const userID = cognitoUser?.attributes?.sub ?? "123"
+    console.log(userID)  
+    setID(userID)
+  }
 
-    console.log(userData);
+  const onSubmit = () => {
 
-    verify({ username: email, password: password }, code)
-        .then((data) => {
-            console.warn('VerifyData: ', data)
-      login({ username: email, password: password })
-        .then((userData) => {
-          alert("Logged in");
+    
+    verifyUser().then(() => {
+      setPageMode(PageMode.ROLE_PICKER_PAGE)
 
-        })
-        .catch((error: any) => {
-          console.error(error);
-          alert("Incorrect username/password");
-        })
-        .finally(() => {
-
-        });
-    }).catch((error) => {
-      console.log(error);
-    });
+    }).catch(error => {
+      console.log(error)
+    })
   };
 
   return (
@@ -56,7 +61,7 @@ export default function VerifyAccountForm(props: any) {
         onChange={(e: any) => setCode(e.target.value)}
       />
 
-      <Button onClick={VerifyUser} type="submit" fullWidth variant="contained" color="primary">
+      <Button onClick={onSubmit} fullWidth variant="contained" color="primary">
         Verify
       </Button>
 

@@ -1,5 +1,6 @@
 import { UserRole } from "../../constants/policies/access.control.policy";
 import { AuthManager } from "../../services/auth";
+import DB from "../../services/data";
 
 export interface UserData {
   readonly id: string;
@@ -30,12 +31,13 @@ export class User {
     // console.log("GETTING USER")
 
     const authUser = await AuthManager.shared.getUser();
+    console.log("ZZ",authUser)
+    const databaseUser = await DB.getUser(authUser.id)
 
-    // const databaseUser: DoubtSolverDB = await DatabaseManager.getDoubtSolver(authUser.id)
+    const role = databaseUser?.type == UserRole.DOCTOR ? UserRole.DOCTOR : UserRole.PATIENT
 
-    // @ts-ignore
-    const user = new User(authUser);
-    // console.log("user", user)
+    let user = new User({...authUser,role});
+    console.log("Final USer",user)
     return user;
   }
 }

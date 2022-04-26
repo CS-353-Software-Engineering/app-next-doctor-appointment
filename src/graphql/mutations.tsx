@@ -1,6 +1,21 @@
 
 
+
+
+
+
+export const createUser = /* GraphQL */ `
+mutation MyMutation2($email: String, $id: ID, $type: UserType = DOCTOR) {
+  createUser(input: {id: $id, email: $email, type: $type}) {
+    email
+    id
+  }
+}
+`;
+
+
 export const createPatient = /* GraphQL */ `
+
   mutation createPatient(
     $input: CreatePatientInput!
     $condition: ModelPatientConditionInput
