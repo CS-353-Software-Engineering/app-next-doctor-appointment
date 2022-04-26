@@ -1,4 +1,4 @@
-import { Container } from "@mui/material";
+import { Container } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { LayoutProvider } from "../../../../providers/LayoutProvider";

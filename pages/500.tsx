@@ -1,10 +1,10 @@
 import Head from "next/head";
 import { NextPage } from "next";
 import Link from "next/link";
-import { APPLICATION_NAME } from "../../src/constants";
+import { APPLICATION_NAME } from "../src/constants";
 import { Row, Col } from "react-bootstrap";
 
-const NotFoundPage: NextPage = () => {
+const InternalServerErrorPage: NextPage = () => {
   return (
     <div className="vw-100 vh-100 d-flex align-items-center justify-content-center">
       <Head>
@@ -14,7 +14,9 @@ const NotFoundPage: NextPage = () => {
       <main>
         <Row>
           <Col className="text-center">
-            <h1 className="fw-semibold text-capitalize">404: Page not found</h1>
+            <h1 className="fw-semibold text-capitalize">
+              500: Internal Server Error
+            </h1>
             <p>
               Return to <Link href="/">Home Page</Link>
             </p>
@@ -24,4 +26,4 @@ const NotFoundPage: NextPage = () => {
     </div>
   );
 };
-export default NotFoundPage;
+export default InternalServerErrorPage;
