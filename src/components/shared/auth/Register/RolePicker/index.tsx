@@ -8,7 +8,11 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 
-export default function RolePicker() {
+interface RolePickerProps {
+  selectedRole: UserRole;
+}
+
+export default function RolePicker(props: RolePickerProps) {
   const [userRole, setUserRole] = useState();
 
   return (
@@ -29,8 +33,8 @@ export default function RolePicker() {
           label="Are you a doctor or a patient?"
           onChange={() => {}}
         >
-          <MenuItem value={"D"}>I am a Doctor</MenuItem>
-          <MenuItem value={"P"}>I am a Patient</MenuItem>
+          <MenuItem value={UserRole.DOCTOR}>I am a Doctor</MenuItem>
+          <MenuItem value={UserRole.PATIENT}>I am a Patient</MenuItem>
         </Select>
       </FormControl>
       <Button type="submit" fullWidth variant="contained" color="primary">
@@ -45,4 +49,9 @@ export default function RolePicker() {
       {/*</Button>*/}
     </>
   );
+}
+
+enum UserRole {
+  DOCTOR = "DOCTOR",
+  PATIENT = "PATIENT",
 }
