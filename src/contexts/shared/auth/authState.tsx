@@ -10,10 +10,9 @@ import { User } from "../../../models/shared/user.model";
 export const AuthState = (props: StateProps) => {
   const [state, dispatch] = useReducer(AuthReducer, defaultState);
 
-  const login = useCallback(async (credentials: AuthCredentials) => {
-    await AuthManager.shared.login(credentials);
-    await loadUser();
-  }, []);
+  const signUpDoctor = useCallback(async () => {}, []);
+  const signUpPatient = useCallback(async () => {}, []);
+  const signUpUser = useCallback(async () => {}, []);
 
   const loadUser = useCallback(async () => {
     const user = await User.loadUser();
@@ -22,6 +21,13 @@ export const AuthState = (props: StateProps) => {
       payload: { user },
     });
   }, []);
+  const login = useCallback(
+    async (credentials: AuthCredentials) => {
+      await AuthManager.shared.login(credentials);
+      await loadUser();
+    },
+    [loadUser]
+  );
 
   const logout = useCallback(async () => {
     await AuthManager.shared.logout();
@@ -46,6 +52,9 @@ export const AuthState = (props: StateProps) => {
         ...state,
         login: login,
         logout: logout,
+        signUpDoctor,
+        signUpPatient,
+        signUpUser,
       }}
     >
       {props.children}
