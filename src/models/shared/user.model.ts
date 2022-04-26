@@ -7,6 +7,7 @@ export interface UserData {
   readonly lName?: string;
   readonly email?: string;
   readonly photo?: string;
+  readonly role: UserRole;
 }
 
 export class User {
@@ -23,7 +24,7 @@ export class User {
     this.lName = data?.lName ?? "";
     this.email = data?.email ?? "";
     this.photo = data?.photo ?? "";
-    this.role = UserRole.DOCTOR;
+    this.role = data?.role ?? UserRole.PATIENT;
   }
   static async loadUser(): Promise<User> {
     // console.log("GETTING USER")

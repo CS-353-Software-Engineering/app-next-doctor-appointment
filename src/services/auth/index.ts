@@ -1,9 +1,16 @@
 import { Auth } from "aws-amplify";
 import { CognitoUser } from "amazon-cognito-identity-js";
+import {UserRole} from "../../constants/policies/access.control.policy";
 
 export interface AuthCredentials {
   username: string;
   password: string;
+}
+
+enum CognitoGroups {
+  DOCTOR = "DOCTOR",
+  PATIENT = "PATIENT",
+  UNKNOWN = "UNKNOWN",
 }
 
 export class AuthUser {
@@ -12,6 +19,7 @@ export class AuthUser {
   readonly fName?: string;
   readonly lName?: string;
   readonly photo?: string;
+  readonly role?: UserRole;
 
   constructor(user: CognitoUser) {
     const userData = AuthUser.getUserData(user);
@@ -21,11 +29,31 @@ export class AuthUser {
     this.photo = userData?.["picture"] ?? "";
     this.email = userData?.email ?? "";
 
+    const groups = AuthUser.getUserGroups(userData)
+
+    this.role = AuthUser.getUserRole(groups)
+
     // this.role = UserRole.ADMIN
   }
 
   private static getUserData(user: CognitoUser): any {
     return user.getSignInUserSession()?.getIdToken().payload;
+  }
+
+  private static getUserGroups(userData: any): [string] {
+    return userData?.['cognito:groups']
+  }
+
+
+  private static getUserRole(roles: [string]): UserRole {
+    const userRoles = roles.map(role => role.toUpperCase())
+    if (userRoles.includes(CognitoGroups.DOCTOR)) {
+      return UserRole.DOCTOR
+    }
+    if (userRoles.includes(CognitoGroups.PATIENT)) {
+        return UserRole.PATIENT
+    }
+    return UserRole.UNKNOWN
   }
 }
 

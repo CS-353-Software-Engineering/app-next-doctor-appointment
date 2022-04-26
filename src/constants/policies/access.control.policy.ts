@@ -13,4 +13,8 @@ export const policies: { urls: string[]; role: UserRole }[] = [
     urls: ["/patient"],
     role: UserRole.PATIENT,
   },
+  {
+    urls: ["/unauthorized"],
+    role: UserRole.UNKNOWN,
+  },
 ];
