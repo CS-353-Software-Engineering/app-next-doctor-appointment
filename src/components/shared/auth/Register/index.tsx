@@ -45,7 +45,7 @@ export default function Register() {
       <Container maxWidth="xs">
         {pageMode == PageMode.PATIENT_DETAIL_PAGE && <PatientForm />}
         {pageMode == PageMode.DOCTOR_DETAILS_PAGE && <DoctorForm />}
-        {pageMode == PageMode.ROLE_PICKER_PAGE && <RolePicker />}
+        {/* {pageMode == PageMode.ROLE_PICKER_PAGE && <RolePicker />} */}
         {pageMode == PageMode.VERIFY_USER_PAGE && <VerifyAccountForm />}
         {pageMode == PageMode.REGISTER_USER_PAGE && <RegisterForm />}
       </Container>
