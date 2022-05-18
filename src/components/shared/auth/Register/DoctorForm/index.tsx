@@ -44,17 +44,16 @@ export default function DoctorForm(props: any) {
   const onSubmit = (doctorData: DoctorFormInput) => {
     setLoading(true);
 
-        createDoctor({...userData,...doctorData}).then(() => {
-          console.log("Account created successfully!");
-              redirect()
-        })
-            .catch((error) => {
-          console.log(error);
-        })
-            .finally(() => {
-              setLoading(false);
-
-        });
+    createDoctor({ ...userData, ...doctorData }).then(() => {
+      console.log("Account created successfully!");
+      redirect()
+    })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -113,7 +112,7 @@ export default function DoctorForm(props: any) {
 
 
             <br />
-            <Button type="submit" fullWidth variant="contained" color="primary">
+            <Button disabled={loading} type="submit" fullWidth variant="contained" color="primary">
               Submit
             </Button>
 

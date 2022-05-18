@@ -39,7 +39,9 @@ export default function RegisterForm(props: any) {
     [router]
   );
 
-  const {signup} = useContext(AuthContext)
+  const { signup } = useContext(AuthContext);
+
+  const [loading, setLoading] = useState(false);
 
 
   const {
@@ -51,12 +53,14 @@ export default function RegisterForm(props: any) {
   });
 
   const onSubmit = (data: UserFormInput) => {
+    setLoading(true);
     signup({ username: data.email, password: data.password }).then(() => {
       setPageMode(PageMode.VERIFY_USER_PAGE);
       setUserData(data);
     }).catch(() => {
       console.log("Incorrect username password")
     })
+      .finally(() => { setLoading(false); })
   };
 
   return (
@@ -107,18 +111,21 @@ export default function RegisterForm(props: any) {
 
         <br />
 
-        <Button type="submit" fullWidth variant="contained" color="primary">
+        <Button disabled={loading} type="submit" fullWidth variant="contained" color="primary">
           Register
         </Button>
-        <p
-          className="text-center text-danger text-decoration-underline mt-4 cursor-pointer"
-          color="primary"
-          onClick={() => {
-            redirectTo("/auth/login");
-          }}
-        >
-          Already have an account?
-        </p>
+
+        {!loading &&
+          <p
+            className="text-center text-danger text-decoration-underline mt-4 cursor-pointer"
+            color="primary"
+            onClick={() => {
+              redirectTo("/auth/login");
+            }}
+          >
+            Already have an account?
+          </p>
+        }
       </form>
     </div>
   );

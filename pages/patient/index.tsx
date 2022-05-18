@@ -60,6 +60,7 @@ const doctors = [
 ];
 
 export default function DoctorsList() {
+
   const router = useRouter();
 
   return (
@@ -80,6 +81,7 @@ export default function DoctorsList() {
                     </td>
                     <td >
                       <Button
+                        onClick={() => { router.replace(`/doctor-profile/${doctor.id}`) }}
                         fullWidth
                         variant="contained"
                         color="primary"

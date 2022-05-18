@@ -11,7 +11,7 @@ type LayoutProviderProps = {
 };
 
 export const LayoutProvider = (props: LayoutProviderProps) => {
-  const { user, logout, isLoggedIn } = useContext(AuthContext);
+  const { user, isLoggedIn } = useContext(AuthContext);
 
   if (isLoggedIn === LoginStatus.UNKNOWN) {
     return (

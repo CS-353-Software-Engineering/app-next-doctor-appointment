@@ -47,22 +47,22 @@ export const AuthProvider = (props: AuthProviderProps) => {
   }, [user, isLoggedIn]);
 
 
-const isWhiteListed = (url:string) :boolean => {
-  console.log(whitelistedPaths)
-  console.log(url)
-  return whitelistedPaths.includes(url);
-}
+  const isWhiteListed = (url: string): boolean => {
+    console.log(whitelistedPaths)
+    console.log(url)
+    return whitelistedPaths.includes(url);
+  }
 
   const checkAccess = (url: string) => {
     if (isLoggedIn == LoginStatus.UNKNOWN) {
       return;
     }
 
-    if (isWhiteListed(url)){
+    if (isWhiteListed(url)) {
       return;
     }
 
-    
+
 
     if (isLoggedIn == LoginStatus.LOGGED_OUT) {
       redirectTo("/auth/login");
@@ -74,15 +74,8 @@ const isWhiteListed = (url:string) :boolean => {
       redirectTo(getRedirectPage());
       return;
     }
-    
-  };
 
-  // //Check Access Control on Route Change
-  // useEffect(() => {
-  //   router.events.on("routeChangeStart", (url) => {
-  //     checkAccess(url);
-  //   });
-  // }, []);
+  };
 
   // Check Access Control on Start
   useEffect(() => {
@@ -90,7 +83,7 @@ const isWhiteListed = (url:string) :boolean => {
   }, [isLoggedIn]);
 
   const redirectTo = useCallback((path: string) => {
-    router.replace(path).finally(() => {});
+    router.replace(path).finally(() => { });
   }, []);
 
   if (isLoggedIn === LoginStatus.UNKNOWN) {

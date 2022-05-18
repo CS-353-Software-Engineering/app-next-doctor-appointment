@@ -4,10 +4,10 @@ import React, { useContext, useState } from "react";
 import { PageMode, UserFormInput } from "../../../../../constants/helpers";
 import AuthContext from "../../../../../contexts/shared/auth/authContext";
 
-interface VerifyAccountFormProps{
+interface VerifyAccountFormProps {
   setPageMode: (mode: PageMode) => void;
-  userData:UserFormInput,
-  setID:(id:string) => void
+  userData: UserFormInput,
+  setID: (id: string) => void
 }
 
 export default function VerifyAccountForm(props: VerifyAccountFormProps) {
@@ -21,28 +21,31 @@ export default function VerifyAccountForm(props: VerifyAccountFormProps) {
   const [code, setCode] = useState("");
 
   const { login, verify } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
 
 
 
   const verifyUser = async () => {
     const { email, password } = userData;
-    await verify({username:email, password}, code);
+    await verify({ username: email, password }, code);
     const cognitoUser = await login({ username: email, password: password })
-    
+
     const userID = cognitoUser?.attributes?.sub ?? "123"
-    console.log(userID)  
+    console.log(userID)
     setID(userID)
   }
 
   const onSubmit = () => {
 
-    
+    setLoading(true);
+
     verifyUser().then(() => {
       setPageMode(PageMode.ROLE_PICKER_PAGE)
 
     }).catch(error => {
       console.log(error)
     })
+      .finally(() => { setLoading(false); })
   };
 
   return (
@@ -61,7 +64,7 @@ export default function VerifyAccountForm(props: VerifyAccountFormProps) {
         onChange={(e: any) => setCode(e.target.value)}
       />
 
-      <Button onClick={onSubmit} fullWidth variant="contained" color="primary">
+      <Button disabled={loading} onClick={onSubmit} fullWidth variant="contained" color="primary">
         Verify
       </Button>
 

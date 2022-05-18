@@ -44,19 +44,17 @@ export default function PatientForm(props: any) {
   const onSubmit = (patientData: PatientFormInput) => {
     setLoading(true);
 
-    createPatient({...userData,...patientData}).then(() => {
-          console.log("Account created successfully!");
-              redirect()
-        })
-            .catch((error) => {
-          console.log(error);
-        })
-            .finally(() => {
-              setLoading(false);
+    createPatient({ ...userData, ...patientData }).then(() => {
+      console.log("Account created successfully!");
+      redirect()
+    })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
 
-
-        });
-      
   };
 
   return (
@@ -115,7 +113,7 @@ export default function PatientForm(props: any) {
 
 
             <br />
-            <Button type="submit" fullWidth variant="contained" color="primary">
+            <Button disabled={loading} type="submit" fullWidth variant="contained" color="primary">
               Submit
             </Button>
 
