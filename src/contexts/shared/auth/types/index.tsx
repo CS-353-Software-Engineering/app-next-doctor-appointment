@@ -1,6 +1,6 @@
 import { User } from "../../../../models/shared/user.model";
 import { AuthCredentials } from "../../../../services/auth";
-import {CognitoUser} from "amazon-cognito-identity-js";
+import { CognitoUser } from "amazon-cognito-identity-js";
 import { UserRole } from "../../../../constants/policies/access.control.policy";
 
 export enum LoginStatus {
@@ -19,8 +19,8 @@ export interface IAuthContext {
   logout: Function;
   signup: (credentials: AuthCredentials) => Promise<CognitoUser | void>;
   verify: (credentials: AuthCredentials, verificationCode: string) => Promise<any>;
-  createPatient:(details:PatientDetails) => Promise<void>,
-  createDoctor:(details:PatientDetails) => Promise<void>,
+  createPatient: (details: PatientDetails) => Promise<void>,
+  createDoctor: (details: PatientDetails) => Promise<void>,
 }
 
 export const defaultState: IAuthContext = {
@@ -31,17 +31,16 @@ export const defaultState: IAuthContext = {
   logout: () => { },
   signup: async (credentials: AuthCredentials) => Promise.resolve(),
   verify: async (credentials: AuthCredentials, verificationCode: string) => Promise.resolve(),
-  createDoctor:async (details:DoctorDetails) => {},
-  createPatient:async (details:PatientDetails) => {},
+  createDoctor: async (details: DoctorDetails) => { },
+  createPatient: async (details: PatientDetails) => { },
 };
 
 
-export interface BasicUserDetails{
-  id:string
-  email:string
-  type:UserRole
+export interface BasicUserDetails {
+  id: string
+  email: string
+  type: UserRole
 }
-
 
 
 export interface PatientDetails extends BasicUserDetails {

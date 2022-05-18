@@ -4,8 +4,8 @@ import {
 } from "@mui/material";
 import { useRouter } from "next/router";
 import { LayoutProvider } from "../../src/providers/LayoutProvider";
-
-import {Table, Button } from "react-bootstrap"
+import { Button } from "@mui/material";
+import { Table } from "react-bootstrap"
 
 const doctors = [
   {
@@ -69,22 +69,28 @@ export default function DoctorsList() {
 
         <Table>
           <tbody>
-          {
-            doctors?.map((doctor, index) => {
-              return (
-                  <tr key={index}>
+            {
+              doctors?.map((doctor, index) => {
+                return (
+                  <tr key={index} className="align-middle" >
                     <td><Avatar alt={doctor?.name} src={doctor?.image} /></td>
                     <td>
                       <p className="fs-5 mb-0"><span className="fw-medium">{doctor?.name}</span> | {doctor.speciality}</p>
                       <p>{doctor?.description}</p>
                     </td>
-                    <td>
-                      <Button variant="primary" className="w-100">View</Button>
+                    <td >
+                      <Button
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                      >
+                        View
+                      </Button>
                     </td>
                   </tr>
-              )
-            })
-          }
+                )
+              })
+            }
           </tbody>
         </Table>
       </div>

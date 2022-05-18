@@ -23,6 +23,7 @@ export class AuthUser {
 
   constructor(user: CognitoUser) {
     const userData = AuthUser.getUserData(user);
+    console.log("HELLo123 ZZ", userData);
     this.id = userData?.sub ?? "";
     this.fName = userData?.name ?? "";
     this.lName = userData?.["family_name"] ?? "";
@@ -82,7 +83,7 @@ export class AuthManager {
   }
 
   async signup(credentials: AuthCredentials): Promise<CognitoUser> {
-    const result =  await Auth.signUp({
+    const result = await Auth.signUp({
       username: credentials.username,
       password: credentials.password,
       attributes: {
@@ -90,7 +91,7 @@ export class AuthManager {
       },
     });
 
-    return result?.user
+    return result?.user;
   }
 
   verify(credentials: AuthCredentials, verificationCode: string): Promise<any> {

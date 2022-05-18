@@ -28,16 +28,17 @@ export class User {
     this.role = data?.role ?? UserRole.PATIENT;
   }
   static async loadUser(): Promise<User> {
-    // console.log("GETTING USER")
-
     const authUser = await AuthManager.shared.getUser();
-    console.log("ZZ",authUser)
-    const databaseUser = await DB.getUser(authUser.id)
+    console.log("ZZ", authUser);
+    const databaseUser = await DB.getUser(authUser.id);
 
-    const role = databaseUser?.type == UserRole.DOCTOR ? UserRole.DOCTOR : UserRole.PATIENT
+    const role =
+      databaseUser?.type == UserRole.DOCTOR
+        ? UserRole.DOCTOR
+        : UserRole.PATIENT;
 
-    let user = new User({...authUser,role});
-    console.log("Final USer",user)
+    let user = new User({ ...authUser, role });
+    console.log("Final USer", user);
     return user;
   }
 }
