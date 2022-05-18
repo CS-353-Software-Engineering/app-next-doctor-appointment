@@ -47,6 +47,8 @@ export const createDoctor = /* GraphQL */ `
     profileImage
     id
     createdAt
+    bio
+    doctorDepartmentId
     }
   }
 `;

@@ -36,6 +36,22 @@ query getDoctor($id: ID!) {
     number
     profileImage
     updatedAt
+    bio
+    department {
+      id
+      name
+    }
+  }
+}
+`;
+
+export const listDepartments = `
+query listDepartments {
+  listDepartments {
+    items {
+      id
+      name
+    }
   }
 }
 `;
