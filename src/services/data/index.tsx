@@ -4,7 +4,6 @@ import * as queries from "../../graphql/queries";
 import { UserRole } from "../../constants/policies/access.control.policy";
 
 
-
 interface CreateUserInput {
     id: string,
     email: string,
@@ -72,24 +71,24 @@ export default class DB {
 
     static async getUser(id: string) {
 
-        console.log("USER ID", id);
-
         const user = await API.graphql({
             query: queries.getUser,
             variables: { id: id },
         });
 
         //@ts-ignore
-        const userData = user?.data?.getUser;
+        let userData = user?.data?.getUser;
 
-        console.log("User:", user);
+        if (userData?.type === UserRole.PATIENT) {
+            const patient = await this.getPatient(id);
+            userData = Object.assign({}, userData, patient);
+        }
+        else if (userData?.type === UserRole.DOCTOR) {
+            const doctor = await this.getDoctor(id);
+            userData = Object.assign({}, userData, doctor);
+        }
 
-        // if (userData?.type === UserRole.PATIENT) {
-        //     this.getPatient(id);
-        // }
-        // else if (userData?.type === UserRole.DOCTOR) {
-        //     this.getDoctor(id);
-        // }
+        console.log("HAHAHA", userData);
 
         return userData;
     }
@@ -101,8 +100,8 @@ export default class DB {
             variables: { id: id },
         });
 
-        console.log("Patient", patient);
-        return patient;
+        //@ts-ignore
+        return patient?.data?.getPatient;
     }
 
     static async getDoctor(id: string) {
@@ -112,8 +111,8 @@ export default class DB {
             variables: { id: id },
         });
 
-        console.log("Doctor", doctor);
-        return doctor;
+        //@ts-ignore
+        return doctor?.data?.getDoctor;
     }
 
 

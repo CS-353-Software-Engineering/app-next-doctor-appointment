@@ -23,11 +23,10 @@ export class AuthUser {
 
   constructor(user: CognitoUser) {
     const userData = AuthUser.getUserData(user);
-    console.log("HELLo123 ZZ", userData);
     this.id = userData?.sub ?? "";
-    this.fName = userData?.name ?? "";
-    this.lName = userData?.["family_name"] ?? "";
-    this.photo = userData?.["picture"] ?? "";
+    this.fName = userData?.["fName"] ?? "";
+    this.lName = userData?.["lName"] ?? "";
+    this.photo = userData?.["profileImage"] ?? "";
     this.email = userData?.email ?? "";
 
     const groups = AuthUser.getUserGroups(userData);

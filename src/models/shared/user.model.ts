@@ -25,11 +25,11 @@ export class User {
     this.lName = data?.lName ?? "";
     this.email = data?.email ?? "";
     this.photo = data?.photo ?? "";
-    this.role = data?.role ?? UserRole.PATIENT;
+    this.role = data?.role ?? UserRole.UNKNOWN;
   }
+
   static async loadUser(): Promise<User> {
     const authUser = await AuthManager.shared.getUser();
-    console.log("ZZ", authUser);
     const databaseUser = await DB.getUser(authUser.id);
 
     const role =
@@ -37,8 +37,9 @@ export class User {
         ? UserRole.DOCTOR
         : UserRole.PATIENT;
 
-    let user = new User({ ...authUser, role });
-    console.log("Final USer", user);
+    let user = new User({ ...databaseUser, role });
+
+    console.log("Final User", databaseUser);
     return user;
   }
 }
