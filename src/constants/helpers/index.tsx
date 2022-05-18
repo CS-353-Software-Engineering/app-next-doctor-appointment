@@ -24,8 +24,16 @@ export interface PatientFormInput {
     number: string;
 }
 
+
+export interface Department {
+    id: string,
+    name: string,
+}
+
+
 export interface DoctorFormInput {
     fName: string;
     lName: string;
     number: string;
+    bio: string;
 }

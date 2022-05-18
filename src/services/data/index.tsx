@@ -23,7 +23,8 @@ interface CreatePatientInput extends CreateUserDataInput {
 }
 
 interface CreateDoctorInput extends CreateUserDataInput {
-
+    bio: string,
+    doctorDepartmentId: string,
 }
 export default class DB {
 
@@ -60,9 +61,16 @@ export default class DB {
                 email: input.email,
                 fName: input.fName,
                 lName: input.lName,
-                number: input.number
+                number: input.number,
+                bio: input.bio,
+                doctorDepartmentId: input.doctorDepartmentId,
             }
         };
+
+        console.log("DOCTOR DATA", data);
+
+        return;
+
         await API.graphql(graphqlOperation(mutations.createDoctor, data));
     }
 
@@ -110,6 +118,16 @@ export default class DB {
 
         //@ts-ignore
         return doctor?.data?.getDoctor;
+    }
+
+    static async getAllDepartments() {
+
+        let departments = await API.graphql({
+            query: queries.listDepartments,
+        });
+
+        //@ts-ignore
+        return departments?.data?.listDepartments?.items;
     }
 
 

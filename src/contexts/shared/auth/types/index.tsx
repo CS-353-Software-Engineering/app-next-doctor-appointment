@@ -20,7 +20,7 @@ export interface IAuthContext {
   signup: (credentials: AuthCredentials) => Promise<CognitoUser | void>;
   verify: (credentials: AuthCredentials, verificationCode: string) => Promise<any>;
   createPatient: (details: PatientDetails) => Promise<void>,
-  createDoctor: (details: PatientDetails) => Promise<void>,
+  createDoctor: (details: DoctorDetails) => Promise<void>,
 }
 
 export const defaultState: IAuthContext = {
@@ -53,4 +53,6 @@ export interface DoctorDetails extends BasicUserDetails {
   fName: string;
   lName: string;
   number: string;
+  bio: string;
+  doctorDepartmentId: string;
 }
