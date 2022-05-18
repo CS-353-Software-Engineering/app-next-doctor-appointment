@@ -6,15 +6,11 @@ import PatientForm from "./PatientForm";
 import VerifyAccountForm from "./VerifyAccountForm";
 import RegisterForm from "./RegisterForm";
 import RolePicker from "./RolePicker";
-import { PageMode, UserFormInput } from "../../../../constants/helpers";
+import { PageMode, UserFormInput, Department } from "../../../../constants/helpers";
 import { UserRole } from "../../../../constants/policies/access.control.policy";
 import DB from "../../../../services/data";
 
 
-interface Department {
-  id: string,
-  name: string,
-}
 
 export default function Register() {
   const [pageMode, setPageMode] = useState<PageMode>(
