@@ -6,6 +6,11 @@ export enum PageMode {
     ROLE_PICKER_PAGE,
 }
 
+export enum ForgotPasswordMode {
+    SUBMIT_EMAIL,
+    RESET_PASSWORD,
+}
+
 export interface UserFormInput {
     id: string;
     email: string;

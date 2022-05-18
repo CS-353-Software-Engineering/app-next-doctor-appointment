@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Spinner } from "react-bootstrap";
@@ -26,6 +26,7 @@ const schema = yup.object().shape({
 
 export default function Index() {
   const [loading, setLoading] = useState(false);
+  const [errorOccured, setErrorOccured] = useState(false);
 
   const router = useRouter();
 
@@ -41,13 +42,15 @@ export default function Index() {
 
   const onSubmit = async (data: IFormInput) => {
     setLoading(true);
+    setErrorOccured(false);
+
     login({ username: data.email, password: data.password })
       .then(() => {
-        alert("Logged in");
+        console.log('Successfully logged in');
       })
       .catch((error: any) => {
-        console.error(error);
-        alert("Incorrect username/password");
+        console.error(error.errors);
+        setErrorOccured(true);
       })
       .finally(() => {
         setLoading(false);
@@ -68,41 +71,51 @@ export default function Index() {
           Login
         </Typography>
 
-        {!loading && (
-          <form onSubmit={handleSubmit(onSubmit)} noValidate>
-            <TextField
-              label="Email"
-              {...register("email")}
-              variant="outlined"
-              margin="normal"
-              fullWidth
-            />
+        <form onSubmit={handleSubmit(onSubmit)} noValidate>
+          <TextField
+            label="Email"
+            {...register("email")}
+            variant="outlined"
+            margin="normal"
+            fullWidth
+          />
+          <Typography variant="inherit" color="textSecondary">
+            {errors.email?.message}
+          </Typography>
+
+          <TextField
+            {...register("password")}
+            variant="outlined"
+            label="Password"
+            margin="normal"
+            type="password"
+            fullWidth
+          />
+
+          <Typography variant="inherit" color="textSecondary">
+            {errors.password?.message}
+          </Typography>
+
+
+          {errorOccured &&
             <Typography variant="inherit" color="textSecondary">
-              {errors.email?.message}
+              Incorrect email or password
             </Typography>
+          }
 
-            <TextField
-              {...register("password")}
-              variant="outlined"
-              label="Password"
-              margin="normal"
-              type="password"
-              fullWidth
-            />
+          <Button
+            disabled={loading}
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+          >
+            Login
+          </Button>
 
-            <Typography variant="inherit" color="textSecondary">
-              {errors.password?.message}
-            </Typography>
+          {loading && <div style={{ textAlign: 'center' }}> <br /><Spinner animation="border" /> </div>}
 
-            <Button
-              disabled={loading}
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-            >
-              Login
-            </Button>
+          {!loading && <div>
             <p
               className="text-center text-danger text-decoration-underline mt-4 cursor-pointer"
               color="primary"
@@ -112,15 +125,19 @@ export default function Index() {
             >
               Do not have an account? Sign up today!
             </p>
-          </form>
-        )}
 
-        {loading && (
-          <div style={{ textAlign: "center" }}>
-            <br />
-            <Spinner animation="border" color="white" />
-          </div>
-        )}
+            <p
+              className="text-center text-danger text-decoration-underline mt-4 cursor-pointer"
+              color="primary"
+              onClick={() => {
+                redirectTo("/auth/forgotPassword");
+              }}
+            >
+              Forgot Password
+            </p>
+          </div>}
+        </form>
+
       </Container>
     </LayoutProvider>
   );

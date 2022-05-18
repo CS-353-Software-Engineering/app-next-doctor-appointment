@@ -13,19 +13,6 @@ type LayoutProviderProps = {
 export const LayoutProvider = (props: LayoutProviderProps) => {
   const { user, logout, isLoggedIn } = useContext(AuthContext);
 
-  //
-  // const getMenu = useCallback((): { url: string, icon: string, title: string }[] => {
-  //     const role = user?.role ?? UserRole.UNKNOWN
-  //     switch (role) {
-  //         case UserRole.ADMIN:
-  //             return ADMIN_MENU
-  //         case UserRole.DOUBT_SOLVER:
-  //             return DOUBT_SOLVER_MENU
-  //         default:
-  //             return []
-  //     }
-  // }, [user])
-
   if (isLoggedIn === LoginStatus.UNKNOWN) {
     return (
       <div className="d-flex flex-column align-items-center justify-content-center vh-100 vw-100">
