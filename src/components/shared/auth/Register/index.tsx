@@ -1,6 +1,5 @@
 import { Container } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import React, { useState } from "react";
 import { LayoutProvider } from "../../../../providers/LayoutProvider";
 import DoctorForm from "./DoctorForm";
 import PatientForm from "./PatientForm";

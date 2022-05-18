@@ -6,10 +6,11 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
+
 import { useRouter } from "next/router";
 import { Fragment, useEffect, useState } from "react";
-import { Doctor } from "../../src/models/doctor/doctor.model";
-import { LayoutProvider } from "../../src/providers/LayoutProvider";
+import { Doctor } from "../../../src/models/doctor/doctor.model";
+import { LayoutProvider } from "../../../src/providers/LayoutProvider";
 
 const DoctorProfile = () => {
   const router = useRouter();

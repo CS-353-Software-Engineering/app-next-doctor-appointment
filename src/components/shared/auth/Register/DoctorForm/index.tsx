@@ -6,7 +6,6 @@ import { DoctorFormInput } from "../../../../../constants/helpers";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
-import DB from "../../../../../services/data";
 import { Spinner } from "react-bootstrap";
 import AuthContext from "../../../../../contexts/shared/auth/authContext";
 import { useRouter } from "next/router";

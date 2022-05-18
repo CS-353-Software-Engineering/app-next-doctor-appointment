@@ -81,7 +81,7 @@ export default function DoctorsList() {
                     </td>
                     <td >
                       <Button
-                        onClick={() => { router.replace(`/doctor-profile/${doctor.id}`) }}
+                        onClick={() => { router.replace(`/patient/doctor-profile/${doctor.id}`) }}
                         fullWidth
                         variant="contained"
                         color="primary"
