@@ -67,10 +67,6 @@ export default class DB {
             }
         };
 
-        console.log("DOCTOR DATA", data);
-
-        return;
-
         await API.graphql(graphqlOperation(mutations.createDoctor, data));
     }
 
