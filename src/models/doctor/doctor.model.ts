@@ -14,7 +14,7 @@ export default class Doctor {
     this.fName = doctorDB.fName ?? ''
     this.lName = doctorDB.lName ?? ''
     this.speciality = doctorDB.speciality ?? "General Physician"
-    this.image = doctorDB.image ?? "" /* Doctor.getRandomInteger() */
+    this.image = doctorDB.image ?? `${this.fName[0]}${this.lName}` /* Doctor.getRandomInteger() */
 
     // console.warn("Ehh ", this)
   }
