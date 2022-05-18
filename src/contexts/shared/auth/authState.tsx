@@ -8,6 +8,7 @@ import { AuthCredentials, AuthManager } from "../../../services/auth";
 import { User } from "../../../models/shared/user.model";
 import DB from "../../../services/data";
 import { UserRole } from "../../../constants/policies/access.control.policy";
+import { Auth } from "aws-amplify";
 
 export const AuthState = (props: StateProps) => {
   const [state, dispatch] = useReducer(AuthReducer, defaultState);
@@ -19,15 +20,20 @@ export const AuthState = (props: StateProps) => {
   }
 
   const createDoctor = (userData: DoctorDetails) => {
-    DB.createPatient(userData)
+    DB.createDoctor(userData)
     return DB.createUser({ ...userData, type: UserRole.DOCTOR })
   }
 
 
   const login = useCallback(async (credentials: AuthCredentials) => {
     const cognitoUser = await AuthManager.shared.login(credentials);
+    console.log('COGNITO USER SIGNED IN: ', cognitoUser);
+
+    console.log('CURRENT AUTHENTICATED', await Auth.currentAuthenticatedUser());
+
+
     await loadUser();
-    console.warn('COGNITO USER: ', cognitoUser)
+
     return cognitoUser;
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

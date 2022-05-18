@@ -53,7 +53,7 @@ export class AuthUser {
       return UserRole.PATIENT;
     }
     // #TODO: change to UNKNOWN
-    return UserRole.PATIENT;
+    return UserRole.UNKNOWN;
   }
 }
 
@@ -64,10 +64,13 @@ export class AuthManager {
   private constructor() {}
 
   async getUser(): Promise<AuthUser> {
-    if (this.cognitoUser != null || this.cognitoUser != undefined) {
-      return this.cognitoUser;
-    }
+    // if (this.cognitoUser != null || this.cognitoUser != undefined) {
+    //   return this.cognitoUser;
+    // }
+
     const cognitoUser = await Auth.currentAuthenticatedUser();
+    console.log("Authenticated User:", cognitoUser);
+
     const user = new AuthUser(cognitoUser);
     this.cognitoUser = user;
     return user;

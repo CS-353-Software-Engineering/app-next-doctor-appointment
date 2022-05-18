@@ -41,7 +41,7 @@ export default function Header(props: HeaderProps): JSX.Element {
 
           <Navbar.Text className="d-flex flex-row justify-content-center align-items-center">
             &nbsp;
-            {`${props.user?.email ?? 'padawan@maqsad.io'}`}
+            {`${props.user?.email ?? 'johndoe@potato.com'}`}
             &nbsp;&nbsp;&nbsp;
             <Button onClick={() => {
               Logout();

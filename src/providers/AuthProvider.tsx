@@ -8,6 +8,7 @@ import {
   whitelistedPaths,
 } from "../constants/policies/access.control.policy";
 import { Spinner } from "react-bootstrap";
+import { Auth } from "aws-amplify";
 
 type AuthProviderProps = {
   children: any;
@@ -37,6 +38,7 @@ export const AuthProvider = (props: AuthProviderProps) => {
         })?.length > 0
       );
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [user, isLoggedIn]
   );
 
@@ -44,6 +46,7 @@ export const AuthProvider = (props: AuthProviderProps) => {
     const role: string = user?.role ?? UserRole.UNKNOWN;
     const policy = getRolePolicy(role);
     return `${policy.urls?.[0] ?? "/auth/login"}`;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, isLoggedIn]);
 
 
@@ -62,8 +65,6 @@ export const AuthProvider = (props: AuthProviderProps) => {
       return;
     }
 
-
-
     if (isLoggedIn == LoginStatus.LOGGED_OUT) {
       redirectTo("/auth/login");
       return;
@@ -80,10 +81,12 @@ export const AuthProvider = (props: AuthProviderProps) => {
   // Check Access Control on Start
   useEffect(() => {
     checkAccess(window.location.pathname);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedIn]);
 
   const redirectTo = useCallback((path: string) => {
     router.replace(path).finally(() => { });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (isLoggedIn === LoginStatus.UNKNOWN) {

@@ -50,8 +50,6 @@ export default class DB {
                 number: input.number
             }
         };
-        console.log(data)
-
         await API.graphql(graphqlOperation(mutations.createPatient, data));
     }
 
@@ -65,11 +63,12 @@ export default class DB {
                 number: input.number
             }
         };
-        console.log(data)
         await API.graphql(graphqlOperation(mutations.createDoctor, data));
     }
 
     static async getUser(id: string) {
+
+        console.log("Fetching user: ", id);
 
         const user = await API.graphql({
             query: queries.getUser,
@@ -87,8 +86,6 @@ export default class DB {
             const doctor = await this.getDoctor(id);
             userData = Object.assign({}, userData, doctor);
         }
-
-        console.log("HAHAHA", userData);
 
         return userData;
     }
