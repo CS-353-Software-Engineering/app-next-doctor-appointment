@@ -6,62 +6,30 @@ import { useRouter } from "next/router";
 import { LayoutProvider } from "../../src/providers/LayoutProvider";
 import { Button } from "@mui/material";
 import { Table } from "react-bootstrap"
+import {useContext, useEffect, useState, } from "react";
+import DoctorsContext from "../../src/contexts/patient/doctors/doctorsContext";
+import BookDoctorModal from "../../src/components/core/patient/bookDoctorModal";
+import Doctor from "../../src/models/doctor/doctor.model";
 
-const doctors = [
-  {
-    id: 1,
-    name: "John Doe",
-    speciality: "Heart Specialist",
-    image: "https://randomuser.me/api/portraits/men/69.jpg",
-    description: "Hello, I am a nice doctor",
-  },
-  {
-    id: 2,
-    name: "Hassan Abbasi",
-    speciality: "Expert in Cardiology",
-    image: "https://randomuser.me/api/portraits/men/74.jpg",
-    description: "Hello, I am a cool doctor",
-  },
-  {
-    id: 3,
-    name: "Ahmad Feroz",
-    speciality: "Brain Surgeon",
-    image: "https://randomuser.me/api/portraits/men/73.jpg",
-    description: "Hello, I am a good doctor",
-  },
-  {
-    id: 3,
-    name: "Ahmad Feroz",
-    speciality: "Brain Surgeon",
-    image: "https://randomuser.me/api/portraits/men/73.jpg",
-    description: "Hello, I am a good doctor",
-  },
-  {
-    id: 3,
-    name: "Ahmad Feroz",
-    speciality: "Brain Surgeon",
-    image: "https://randomuser.me/api/portraits/men/73.jpg",
-    description: "Hello, I am a good doctor",
-  },
-  {
-    id: 3,
-    name: "Ahmad Feroz",
-    speciality: "Brain Surgeon",
-    image: "https://randomuser.me/api/portraits/men/73.jpg",
-    description: "Hello, I am a good doctor",
-  },
-  {
-    id: 3,
-    name: "Ahmad Feroz",
-    speciality: "Brain Surgeon",
-    image: "https://randomuser.me/api/portraits/men/73.jpg",
-    description: "Hello, I am a good doctor",
-  },
-];
 
 export default function DoctorsList() {
 
   const router = useRouter();
+  const { listDoctors, doctors} = useContext(DoctorsContext);
+
+  const [isShowDoctorDetails, setIsShowDoctorDetails] = useState<boolean>(false)
+  const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null)
+
+  useEffect(() => {
+    console.log("Getting Doctors")
+    listDoctors()
+        .then((doctors) => {
+            console.log("Doctors Raw Data: ", doctors)
+        })
+        .catch((error) => {
+          console.warn("Unable to fetch doctors list, ", error)
+        })
+  }, [])
 
   return (
     <LayoutProvider>
@@ -74,14 +42,20 @@ export default function DoctorsList() {
               doctors?.map((doctor, index) => {
                 return (
                   <tr key={index} className="align-middle" >
-                    <td><Avatar alt={doctor?.name} src={doctor?.image} /></td>
+                    <td><Avatar alt={doctor?.fName} src={doctor?.image ?? 'https://randomuser.me/api/portraits/men/73.jpg'} /></td>
                     <td>
-                      <p className="fs-5 mb-0"><span className="fw-medium">{doctor?.name}</span> | {doctor.speciality}</p>
-                      <p>{doctor?.description}</p>
+                      <p className="fs-5 mb-0"><span className="fw-medium">
+                        {`${doctor?.fName} ${doctor?.lName}`}</span> | {doctor.speciality}
+                      </p>
+                      <p>{doctor?.bio}</p>
                     </td>
                     <td >
                       <Button
-                        onClick={() => { router.replace(`/patient/doctor-profile/${doctor.id}`) }}
+                        // onClick={() => { router.replace(`/patient/doctor-profile/${doctor.id}`) }}
+                        onClick={() => {
+                          setSelectedDoctor(doctor)
+                          setIsShowDoctorDetails(true)
+                        }}
                         fullWidth
                         variant="contained"
                         color="primary"
@@ -96,6 +70,13 @@ export default function DoctorsList() {
           </tbody>
         </Table>
       </div>
+
+      {/*Modals*/}
+      <BookDoctorModal
+          isShow={isShowDoctorDetails}
+          onHide={() => { setIsShowDoctorDetails(false) }}
+          doctor={selectedDoctor}
+      />
     </LayoutProvider>
   );
 }

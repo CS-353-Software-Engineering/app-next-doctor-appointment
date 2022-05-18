@@ -2,6 +2,10 @@ import { API, graphqlOperation } from "@aws-amplify/api";
 import * as mutations from "../../graphql/mutations";
 import * as queries from "../../graphql/queries";
 import { UserRole } from "../../constants/policies/access.control.policy";
+import Doctor from "../../models/doctor/doctor.model";
+import DoctorDB from "./models/doctor.db.model";
+import {Booking} from "../../models/shared/booking.model";
+import {BookingDB} from "./models/booking.db.model";
 
 
 interface CreateUserInput {
@@ -71,7 +75,7 @@ export default class DB {
 
         return;
 
-        await API.graphql(graphqlOperation(mutations.createDoctor, data));
+        // await API.graphql(graphqlOperation(mutations.createDoctor, data));
     }
 
     static async getUser(id: string) {
@@ -130,5 +134,32 @@ export default class DB {
         return departments?.data?.listDepartments?.items;
     }
 
+    static async listDoctors(): Promise<{items: Doctor[]}> {
+
+        const response: any = await API.graphql({
+            query: queries.listDoctors,
+        })
+        const data = response?.data?.listDoctors?.items
+
+        // console.warn("LIST DOCTORS DB", data)
+
+        const items = data?.map((item:any)=> new DoctorDB(item))
+
+        return items
+    }
+
+    static async listBookings(): Promise<{items: Booking[]}> {
+
+        const response: any = await API.graphql({
+            query: queries.listBookings,
+        })
+        const data = response?.data?.listBookings?.items
+
+        // console.warn("LIST DOCTORS DB", data)
+
+        const items = data?.map((item:any)=> new BookingDB(item))
+
+        return items
+    }
 
 }

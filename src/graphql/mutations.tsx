@@ -1,10 +1,4 @@
-
-
-
-
-
-
-export const createUser = /* GraphQL */ `
+export const createUser = `
 mutation MyMutation2($email: String, $id: ID, $type: UserType = DOCTOR) {
   createUser(input: {id: $id, email: $email, type: $type}) {
     email
@@ -14,7 +8,7 @@ mutation MyMutation2($email: String, $id: ID, $type: UserType = DOCTOR) {
 `;
 
 
-export const createPatient = /* GraphQL */ `
+export const createPatient = `
 
   mutation createPatient(
     $input: CreatePatientInput!
@@ -34,7 +28,7 @@ export const createPatient = /* GraphQL */ `
 
 
 
-export const createDoctor = /* GraphQL */ `
+export const createDoctor = `
   mutation createDoctor(
     $input: CreateDoctorInput!
     $condition: ModelDoctorConditionInput
@@ -51,4 +45,60 @@ export const createDoctor = /* GraphQL */ `
     doctorDepartmentId
     }
   }
+`;
+
+export const createBooking = `
+  mutation createDoctorBooking($bookingDateTime: AWSDateTime = "", $doctorBookingDoctorId: ID = "", $doctorBookingPatientId: ID = "") {
+  createDoctorBooking(input: {bookingDateTime: $bookingDateTime, doctorBookingDoctorId: $doctorBookingDoctorId, doctorBookingPatientId: $doctorBookingPatientId, status: PENDING}) {
+    bookingDateTime
+    doctor {
+      id
+      fName
+      lName
+      profileImage
+      department {
+        name
+      }
+    }
+    doctorBookingDoctorId
+    doctorBookingPatientId
+    id
+    patient {
+      id
+      fName
+      lName
+    }
+    status
+    updatedAt
+    createdAt
+  }
+}
+`;
+
+export const updateBooking = `
+  mutation MyMutation($id: ID = "", $status: BookingStatus = PENDING) {
+  updateDoctorBooking(input: {id: $id, status: $status})  {
+    bookingDateTime
+    doctor {
+      id
+      fName
+      lName
+      profileImage
+      department {
+        name
+      }
+    }
+    doctorBookingDoctorId
+    doctorBookingPatientId
+    id
+    patient {
+      id
+      fName
+      lName
+    }
+    status
+    updatedAt
+    createdAt
+  }
+}
 `;

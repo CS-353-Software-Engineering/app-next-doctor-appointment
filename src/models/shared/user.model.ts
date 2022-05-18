@@ -39,7 +39,7 @@ export class User {
 
     let user = new User({ ...databaseUser, role });
 
-    console.log("Final User", databaseUser);
+    // console.log("Final User", databaseUser);
     return user;
   }
 }

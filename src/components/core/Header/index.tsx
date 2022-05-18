@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import React, { useContext, useEffect } from "react";
-import { Container, Navbar } from "react-bootstrap";
+import { Container, Navbar, Image, } from "react-bootstrap";
 import styles from "./styles.module.scss";
 import AuthContext from '../../../contexts/shared/auth/authContext';
 
@@ -38,6 +38,14 @@ export default function Header(props: HeaderProps): JSX.Element {
               {props.user?.fName} {props.user?.lName}
             </strong>
           </Navbar.Text>
+
+          <Navbar.Brand href="/" >
+            <Image
+                className="p-3"
+                src="/doctor.png"
+                alt="Hamdard logo"
+            />
+          </Navbar.Brand>
 
           <Navbar.Text className="d-flex flex-row justify-content-center align-items-center">
             &nbsp;
