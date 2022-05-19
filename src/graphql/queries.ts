@@ -45,12 +45,89 @@ query getDoctor($id: ID!) {
 }
 `;
 
+export const listDoctors = `
+	query MyQuery {
+	  listDoctors {
+	    items {
+	      bio
+	      department {
+	        name
+	      }
+	      email
+	      fName
+	      id
+	      lName
+	      number
+	      profileImage
+	    }
+	  }
+	}
+`;
+
 export const listDepartments = `
 query listDepartments {
   listDepartments {
     items {
       id
       name
+    }
+  }
+}
+`;
+
+export const listBookings = `
+	query listDoctorBookings {
+  listDoctorBookings {
+    items {
+      bookingDateTime
+      createdAt
+      doctor {
+        id
+        fName
+        lName
+        profileImage
+        department {
+          name
+        }
+      }
+      doctorBookingDoctorId
+      doctorBookingPatientId
+      id
+      patient {
+        id
+        fName
+        lName
+      }
+      status
+    }
+  }
+}
+`;
+
+export const getBooking = `
+	query getDoctorBooking($id: ID = "") {
+  getDoctorBooking(id: $id) {
+    items {
+      bookingDateTime
+      createdAt
+      doctor {
+        id
+        fName
+        lName
+        profileImage
+        department {
+          name
+        }
+      }
+      doctorBookingDoctorId
+      doctorBookingPatientId
+      id
+      patient {
+        id
+        fName
+        lName
+      }
+      status
     }
   }
 }

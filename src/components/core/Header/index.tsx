@@ -1,8 +1,11 @@
 import { Button } from "@mui/material";
 import React, { useContext, useEffect } from "react";
-import { Container, Navbar } from "react-bootstrap";
+import { Container, Navbar, Nav, } from "react-bootstrap";
+import Link from "next/link";
 import styles from "./styles.module.scss";
 import AuthContext from '../../../contexts/shared/auth/authContext';
+import {UserRole} from "../../../constants/policies/access.control.policy";
+
 
 interface UserHeaderData {
   readonly id: string;
@@ -10,6 +13,7 @@ interface UserHeaderData {
   readonly lName: string;
   readonly photo: string;
   readonly email: string;
+  readonly role: UserRole
 }
 
 export type HeaderProps = {
@@ -38,6 +42,33 @@ export default function Header(props: HeaderProps): JSX.Element {
               {props.user?.fName} {props.user?.lName}
             </strong>
           </Navbar.Text>
+
+          <Nav navbar={false}>
+            <Nav.Item>
+              <Link
+                  href={`/${props.user.role.toLocaleLowerCase()}`}
+                  passHref
+              >
+                <Nav.Link
+                    className="w-100 my-3"
+                >
+                  Home
+                </Nav.Link>
+              </Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Link
+                  href={`/${props.user.role.toLocaleLowerCase()}/bookings`}
+                  passHref
+              >
+                <Nav.Link
+                    className="w-100 my-3"
+                >
+                  Bookings
+                </Nav.Link>
+              </Link>
+            </Nav.Item>
+          </Nav>
 
           <Navbar.Text className="d-flex flex-row justify-content-center align-items-center">
             &nbsp;

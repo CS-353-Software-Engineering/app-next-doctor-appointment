@@ -1,20 +1,29 @@
 import * as React from "react";
 import { LayoutProvider } from "../../src/providers/LayoutProvider";
-import { Table } from "react-bootstrap"
+import { Row, Col, } from "react-bootstrap"
+import {useContext} from "react";
+import AuthContext from "../../src/contexts/shared/auth/authContext";
+import Link from "next/link";
 
 export default function PatientsList() {
+    const {user} = useContext(AuthContext)
 
     return (
         <LayoutProvider>
-            <div>
-                <h3 className="text-center">List Of Patients</h3>
-
-                <Table>
-                    <tbody>
-
-                    </tbody>
-                </Table>
-            </div>
+            <Row className="text-center vh-100 vw-100">
+                <Col className="d-flex flex-column justify-content-center align-items-center vh-100 vw-100">
+                    <h3>Hello, {user?.fName}</h3>
+                    <h4>Welcome to your Find Me A Doctor portal</h4>
+                    <p>Head over to the &nbsp;
+                        <Link
+                            href="/doctor/bookings"
+                            passHref
+                        >
+                        Bookings Page
+                        </Link>
+                        &nbsp; to view any bookings you may have</p>
+                </Col>
+            </Row>
         </LayoutProvider>
     );
 }
