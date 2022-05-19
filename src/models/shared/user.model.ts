@@ -1,5 +1,5 @@
-import {UserRole} from "../../constants/policies/access.control.policy";
-import {AuthManager} from "../../services/auth";
+import { UserRole } from "../../constants/policies/access.control.policy";
+import { AuthManager } from "../../services/auth";
 import DB from "../../services/data";
 
 export interface UserData {
@@ -32,7 +32,10 @@ export class User {
     const authUser = await AuthManager.shared.getUser();
     const databaseUser = await DB.getUser(authUser.id);
 
-    const role = databaseUser?.type ?? UserRole.UNKNOWN;
+    const role =
+      databaseUser?.type == UserRole.DOCTOR
+        ? UserRole.DOCTOR
+        : UserRole.PATIENT;
 
     let user = new User({ ...databaseUser, role });
 
