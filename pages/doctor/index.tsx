@@ -1,12 +1,17 @@
 import * as React from "react";
 import { LayoutProvider } from "../../src/providers/LayoutProvider";
 import { Row, Col, } from "react-bootstrap"
-import {useContext} from "react";
+import { useContext } from "react";
 import AuthContext from "../../src/contexts/shared/auth/authContext";
 import Link from "next/link";
+import { UserRole } from "../../src/constants/policies/access.control.policy";
 
 export default function PatientsList() {
-    const {user} = useContext(AuthContext)
+    const { user } = useContext(AuthContext)
+
+    if (!user || user?.role == UserRole.PATIENT) {
+        return (<div></div>);
+    }
 
     return (
         <LayoutProvider>
@@ -19,7 +24,7 @@ export default function PatientsList() {
                             href="/doctor/bookings"
                             passHref
                         >
-                        Bookings Page
+                            Bookings Page
                         </Link>
                         &nbsp; to view any bookings you may have</p>
                 </Col>

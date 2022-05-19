@@ -18,16 +18,16 @@ export const AuthState = (props: StateProps) => {
     await DB.createPatient(userData)
     const user = DB.createUser({ ...userData, type: UserRole.PATIENT })
 
-    await loadUser()
+    await loadUser(UserRole.PATIENT)
 
     return user
   }
 
   const createDoctor = async (userData: DoctorDetails) => {
     await DB.createDoctor(userData)
-    const user =  DB.createUser({ ...userData, type: UserRole.DOCTOR })
+    const user = DB.createUser({ ...userData, type: UserRole.DOCTOR })
 
-    await loadUser()
+    await loadUser(UserRole.DOCTOR)
 
     return user
   }
@@ -36,11 +36,9 @@ export const AuthState = (props: StateProps) => {
   const login = useCallback(async (credentials: AuthCredentials) => {
     const cognitoUser = await AuthManager.shared.login(credentials);
     console.log('COGNITO USER SIGNED IN: ', cognitoUser);
-
     console.log('CURRENT AUTHENTICATED', await Auth.currentAuthenticatedUser());
 
-
-    await loadUser();
+    await loadUser(UserRole.UNKNOWN);
 
     return cognitoUser;
 
@@ -60,8 +58,8 @@ export const AuthState = (props: StateProps) => {
   }, []);
 
 
-  const loadUser = useCallback(async () => {
-    const user = await User.loadUser();
+  const loadUser = useCallback(async (userRole: UserRole) => {
+    const user = await User.loadUser(userRole);
     dispatch({
       type: AuthActions.LOAD_USER,
       payload: { user },
@@ -78,7 +76,7 @@ export const AuthState = (props: StateProps) => {
     if (!(state.isLoggedIn === LoginStatus.UNKNOWN)) {
       return;
     }
-    loadUser()
+    loadUser(UserRole.UNKNOWN)
       .then()
       .catch((error) => {
         dispatch({ type: AuthActions.LOAD_USER, payload: null });
