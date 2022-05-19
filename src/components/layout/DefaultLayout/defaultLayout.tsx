@@ -21,13 +21,13 @@ export type DefaultLayoutProps = {
 const DefaultLayout = (props: DefaultLayoutProps) => {
   const { children } = props;
 
-  const { user } = useContext(AuthContext);
-
-  const headerProps = { user };
+  const { user, } = useContext(AuthContext);
 
   useEffect(() => {
-
+    console.log(user)
   }, [user])
+
+  const headerProps = { user };
 
 
 

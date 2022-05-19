@@ -15,13 +15,21 @@ export const AuthState = (props: StateProps) => {
 
 
   const createPatient = async (userData: PatientDetails) => {
-    DB.createPatient(userData)
-    return DB.createUser({ ...userData, type: UserRole.PATIENT })
+    await DB.createPatient(userData)
+    const user = DB.createUser({ ...userData, type: UserRole.PATIENT })
+
+    await loadUser()
+
+    return user
   }
 
-  const createDoctor = (userData: DoctorDetails) => {
-    DB.createDoctor(userData)
-    return DB.createUser({ ...userData, type: UserRole.DOCTOR })
+  const createDoctor = async (userData: DoctorDetails) => {
+    await DB.createDoctor(userData)
+    const user =  DB.createUser({ ...userData, type: UserRole.DOCTOR })
+
+    await loadUser()
+
+    return user
   }
 
 

@@ -33,7 +33,7 @@ export default function PatientForm(props: any) {
 
   const [loading, setLoading] = useState(false);
 
-  const { createPatient } = useContext(AuthContext);
+  const { createPatient, user, } = useContext(AuthContext);
 
   const router = useRouter()
   const redirect = () => {
