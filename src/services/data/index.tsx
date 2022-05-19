@@ -6,6 +6,7 @@ import Doctor from "../../models/doctor/doctor.model";
 import DoctorDB from "./models/doctor.db.model";
 import {Booking} from "../../models/shared/booking.model";
 import {BookingDB} from "./models/booking.db.model";
+import {createBookingPropTypes} from "../../contexts/shared/bookings/types";
 
 
 interface CreateUserInput {
@@ -160,6 +161,23 @@ export default class DB {
         const items = data?.map((item:any)=> new BookingDB(item))
 
         return items
+    }
+
+    static async createBooking(props: createBookingPropTypes): Promise<Booking> {
+        const response: any = await API.graphql({
+            query: mutations.createBooking,
+            variables: {
+                bookingDateTime: new Date(props.bookingDateTime),
+                doctorBookingDoctorId: props.doctorBookingDoctorId,
+                doctorBookingPatientId: props.doctorBookingPatientId
+            }
+        })
+
+        console.warn("CREATE BOOKING CALL: ", response)
+
+        const booking = new BookingDB(response)
+
+        return booking
     }
 
 }

@@ -48,7 +48,7 @@ export const createDoctor = `
 `;
 
 export const createBooking = `
-  mutation createDoctorBooking($bookingDateTime: AWSDateTime = "", $doctorBookingDoctorId: ID = "", $doctorBookingPatientId: ID = "") {
+  mutation createDoctorBooking($bookingDateTime: AWSDateTime, $doctorBookingDoctorId: ID = "", $doctorBookingPatientId: ID = "") {
   createDoctorBooking(input: {bookingDateTime: $bookingDateTime, doctorBookingDoctorId: $doctorBookingDoctorId, doctorBookingPatientId: $doctorBookingPatientId, status: PENDING}) {
     bookingDateTime
     doctor {

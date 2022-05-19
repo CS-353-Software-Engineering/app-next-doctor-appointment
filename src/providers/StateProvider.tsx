@@ -3,6 +3,8 @@ import {UserRole} from "../constants/policies/access.control.policy";
 import {useContext} from "react";
 import AuthContext from "../contexts/shared/auth/authContext";
 import {DoctorsState} from "../contexts/patient/doctors/doctorsState";
+import {BookingsState} from "../contexts/shared/bookings/bookingsState";
+import {NotificationsState} from "../contexts/shared/notifications/notificationsState";
 
 type StateProviderProps = {
   children: any;
@@ -29,8 +31,12 @@ export const StateProvider = (props: StateProviderProps) => {
 
   return (
     <AuthState>
-      {/*@ts-ignore*/}
-      <TenantStateProvider>{props.children}</TenantStateProvider>
+        <NotificationsState>
+          <BookingsState>
+            {/*@ts-ignore*/}
+            <TenantStateProvider>{props.children}</TenantStateProvider>
+          </BookingsState>
+        </NotificationsState>
     </AuthState>
   );
 };

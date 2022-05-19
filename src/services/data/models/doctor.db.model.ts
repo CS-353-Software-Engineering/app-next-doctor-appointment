@@ -1,5 +1,5 @@
 export default class DoctorDB {
-	readonly id: number;
+	readonly id: string;
 	readonly fName: string;
 	readonly lName: string;
 	readonly speciality: string | null;

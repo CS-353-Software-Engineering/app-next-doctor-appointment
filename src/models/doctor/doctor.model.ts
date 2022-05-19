@@ -1,7 +1,7 @@
 import DoctorDB from "../../services/data/models/doctor.db.model";
 
 export default class Doctor {
-  readonly id: number;
+  readonly id: string;
   readonly fName: string;
   readonly lName: string;
   readonly speciality: string | null;

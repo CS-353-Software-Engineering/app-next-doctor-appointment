@@ -1,13 +1,12 @@
 import {StateProps} from "../../index";
 import {useCallback, useReducer} from 'react'
 import BookingsReducer from './bookingsReducer'
-import {defaultState} from './types'
+import {createBookingPropTypes, defaultState} from './types'
 import {BookingsActions} from './types/actions'
 import BookingsContext from "./bookingsContext";
 import DB from '../../../services/data'
 import {BookingDB} from "../../../services/data/models/booking.db.model";
 import {Booking} from "../../../models/shared/booking.model";
-
 
 export const BookingsState = ({children}:StateProps) => {
 	const [state, dispatch] = useReducer(BookingsReducer, defaultState)
@@ -25,10 +24,20 @@ export const BookingsState = ({children}:StateProps) => {
 			}})
 	},[])
 
+	const createBooking = useCallback(async (props: createBookingPropTypes) => {
+		const data: any = await DB.createBooking(props)
+
+		dispatch({
+			type:BookingsActions.CREATE_BOOKING,
+			payload: new Booking(data),
+		})
+	}, [])
+
 	return <BookingsContext.Provider
 		value={{
 			...state,
-			listBookings
+			listBookings,
+			createBooking,
 	}}
 	>
 		{children}
