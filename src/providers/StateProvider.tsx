@@ -13,16 +13,16 @@ type StateProviderProps = {
 //Manage States for each Tenant
 const TenantStateProvider = (props: StateProviderProps) => {
 
-  const {user} = useContext(AuthContext)
+  // const {user} = useContext(AuthContext)
   // console.warn("TENANT PROVIDER ", user)
-
-  if (user?.role === UserRole.PATIENT) {
-    return (
-        <DoctorsState>
-          {props.children}
-        </DoctorsState>
-    )
-  }
+  //
+  // if (user?.role === UserRole.PATIENT) {
+  //   return (
+  //       <DoctorsState>
+  //         {props.children}
+  //       </DoctorsState>
+  //   )
+  // }
 
   return <>{props.children}</>;
 };
@@ -33,8 +33,10 @@ export const StateProvider = (props: StateProviderProps) => {
     <AuthState>
         <NotificationsState>
           <BookingsState>
-            {/*@ts-ignore*/}
-            <TenantStateProvider>{props.children}</TenantStateProvider>
+              <DoctorsState>
+                {/*@ts-ignore*/}
+                <TenantStateProvider>{props.children}</TenantStateProvider>
+              </DoctorsState>
           </BookingsState>
         </NotificationsState>
     </AuthState>

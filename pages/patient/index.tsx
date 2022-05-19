@@ -36,7 +36,7 @@ export default function DoctorsList() {
       <div>
         <h3 className="text-center">List Of Doctors</h3>
 
-        <Table className="text-center">
+        <Table className="text-center fw-bold">
             <thead>
             <td></td>
             <td>Name</td>
