@@ -57,7 +57,7 @@ const DoctorProfile = (props: {isShow: boolean, onHide: (() => void), doctor: Do
 			.finally(() => {
 				setIsBooking(false)
 			})
-	}, [createBooking, doctorID, reset, userID])
+	}, [createBooking, doctorID, props, reset, sendNotification, showError, userID])
 
 	return (
 		<>
@@ -84,7 +84,7 @@ const DoctorProfile = (props: {isShow: boolean, onHide: (() => void), doctor: Do
 								src={doctor?.image ?? 'https://randomuser.me/api/portraits/men/73.jpg'}
 							/>
 							<h2 className="mb-2">{`${doctor?.fName ?? 'Rashid'} ${doctor?.lName ?? 'Naseer'}`}</h2>
-							<h4 className="mb-5">Specialisation: <span className="fw-normal">${doctor?.speciality ?? 'General Physician'}</span></h4>
+							<h4 className="mb-5">Specialisation: <span className="fw-normal">{doctor?.speciality ?? 'General Physician'}</span></h4>
 							<h3>About</h3>
 							<p>{doctor?.bio}</p>
 						</Col>

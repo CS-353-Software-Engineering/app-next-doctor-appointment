@@ -154,9 +154,9 @@ export default class DB {
         const response: any = await API.graphql({
             query: queries.listBookings,
         })
-        const data = response?.data?.listBookings?.items
+        const data = response?.data?.listDoctorBookings?.items
 
-        // console.warn("LIST DOCTORS DB", data)
+        // console.warn("LIST BOOKINGS DB", data)
 
         const items = data?.map((item:any)=> new BookingDB(item))
 

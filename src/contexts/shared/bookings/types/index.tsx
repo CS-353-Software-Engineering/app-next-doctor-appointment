@@ -9,13 +9,13 @@ export type createBookingPropTypes = {
 }
 
 export interface IBookingsContext {
-	bookings: Booking[],
+	bookings?: Booking[],
 	listBookings: listBookingsFunctionType
 	createBooking: (props: createBookingPropTypes) => Promise<void>
 }
 
 export const defaultState: IBookingsContext = {
-	bookings: [],
+	bookings: undefined,
 	listBookings: async () => Promise.resolve(),
 	createBooking: async () => Promise.resolve(),
 }

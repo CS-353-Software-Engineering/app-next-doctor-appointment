@@ -1,7 +1,8 @@
 import {BookingStatus } from "../../constants/bookings/booking.state";
 import Doctor from "../doctor/doctor.model";
 import {BookingDB} from "../../services/data/models/booking.db.model";
-import Patient from "../patient/patient.model";
+import {formatDate} from '../../helpers'
+
 
 interface PatientDetails {
     readonly id: string
@@ -12,8 +13,8 @@ interface PatientDetails {
 
 export class Booking {
   readonly id: string;
-  readonly bookedOn?: Date;
-  readonly lastUpdated?: Date | undefined;
+  readonly bookedOn?: string;
+  readonly lastUpdated?: string | undefined;
   readonly patientID?: string;
   readonly doctorID?: string;
   readonly status: BookingStatus;

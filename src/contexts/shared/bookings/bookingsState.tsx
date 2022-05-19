@@ -15,7 +15,7 @@ export const BookingsState = ({children}:StateProps) => {
 	const listBookings = useCallback(async () => {
 
 		const data: any = await DB.listBookings()
-		// console.warn("LIST DOCTORS: ", data)
+		// console.warn(data)
 
 		dispatch({
 			type:BookingsActions.LIST_BOOKINGS,
